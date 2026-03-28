@@ -1,559 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dabral Ventures - Build Websites, Apps & AI Tools That Scale</title>
-    <meta name="description" content="Fast. Affordable. Modern. Web development, app development, AI tools, and IT consultancy services that transform your business.">
-    <meta name="keywords" content="web development, app development, AI tools, digital marketing, IT services, India">
-    <meta name="author" content="Dabral Ventures">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Dabral Ventures - Build Digital Excellence">
-    <meta property="og:description" content="We craft high-performance websites, apps & AI tools that scale your business.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dabralventures.com">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
-    
-    <!-- Disable scroll restoration on mobile -->
-    <script>
-        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-        if (window.innerWidth <= 768) window.scrollTo(0, 0);
-    </script>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/mobile.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dabral Ventures - Build Websites, Apps &amp; AI Tools That Scale</title>
+<meta name="description" content="Fast. Affordable. Modern. Web development, app development, AI tools, and IT consultancy services that transform your business.">
+<meta name="keywords" content="web development, app development, AI tools, IT consultancy, SaaS design, India">
+<meta name="author" content="Dabral Ventures">
+<meta property="og:title" content="Dabral Ventures - Build Digital Excellence">
+<meta property="og:description" content="We craft high-performance websites, apps, and AI tools that scale your business.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dabralventures.com">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230A1F44'/%3E%3Cpath d='M26 22h20c17 0 28 11 28 28s-11 28-28 28H26V22zm18 45c12 0 18-6 18-17s-6-17-18-17h-6v34h6z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<script>if("scrollRestoration"in history)history.scrollRestoration="manual";if(window.innerWidth<=768)window.scrollTo(0,0);</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#0A66FF;--deep-blue:#0A1F44;--medium-blue:#3B82F6;--light-blue:#D6E4FF;--background:#F4F8FF;--white:#FFF;--text:#15305F;--muted:#5D7296;--shadow-soft:0 18px 50px rgba(10,31,68,.10);--shadow-hover:0 24px 60px rgba(10,31,68,.16);--gradient:linear-gradient(135deg,#0A66FF,#3B82F6);--container:min(1180px,calc(100% - 2rem))}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}body{margin:0;min-height:100vh;font-family:"Outfit",sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(10,102,255,.16),transparent 35%),radial-gradient(circle at bottom right,rgba(59,130,246,.14),transparent 32%),linear-gradient(180deg,#fff 0%,var(--background) 38%,#eef4ff 100%);overflow-x:hidden}body:before,body:after{content:"";position:fixed;width:320px;height:320px;border-radius:50%;pointer-events:none;filter:blur(70px);opacity:.32;z-index:-1}body:before{top:-80px;right:-70px;background:rgba(10,102,255,.28)}body:after{bottom:-110px;left:-80px;background:rgba(59,130,246,.22)}a{color:inherit;text-decoration:none}img{display:block;width:100%}button{font:inherit;color:inherit}.navbar{position:sticky;top:0;z-index:1000;padding:14px 0;background:rgba(244,248,255,.72);backdrop-filter:blur(18px);border-bottom:1px solid rgba(10,102,255,.10)}.nav-container{width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{display:inline-flex;align-items:center;gap:12px;font-family:"Syne",sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:.01em;color:var(--deep-blue);white-space:nowrap}.logo-mark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:14px;background:var(--gradient);color:var(--white);box-shadow:0 14px 30px rgba(10,102,255,.28)}.nav-links{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid rgba(10,102,255,.08);border-radius:999px;background:rgba(255,255,255,.6);box-shadow:0 10px 24px rgba(10,31,68,.06)}.nav-links a,.mobile-menu a{color:var(--deep-blue);font-weight:500;transition:transform .3s ease,color .3s ease,background-color .3s ease,box-shadow .3s ease}.nav-links a{padding:10px 16px;border-radius:999px}.nav-links a:hover,.nav-links a:focus-visible{color:var(--primary);background:rgba(10,102,255,.10);transform:translateY(-1px);outline:none}.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:var(--gradient);color:var(--white);font-weight:600;box-shadow:0 16px 32px rgba(10,102,255,.25);transition:transform .3s ease,box-shadow .3s ease,filter .3s ease}.cta-btn:hover,.cta-btn:focus-visible{transform:translateY(-2px) scale(1.01);box-shadow:0 20px 40px rgba(10,102,255,.32);filter:saturate(1.08) brightness(1.04);outline:none}.menu-toggle{display:none;align-items:center;justify-content:center;width:46px;height:46px;border:1px solid rgba(10,102,255,.14);border-radius:14px;background:rgba(255,255,255,.84);color:var(--deep-blue);cursor:pointer;box-shadow:0 10px 24px rgba(10,31,68,.08);transition:transform .3s ease,box-shadow .3s ease,background-color .3s ease}.menu-toggle:hover,.menu-toggle:focus-visible{transform:translateY(-1px);box-shadow:0 14px 28px rgba(10,31,68,.12);background:rgba(214,228,255,.95);outline:none}.mobile-menu{display:none;width:var(--container);margin:12px auto 0;padding:12px;border-radius:16px;background:rgba(255,255,255,.86);border:1px solid rgba(10,102,255,.10);box-shadow:0 20px 40px rgba(10,31,68,.10);backdrop-filter:blur(14px)}.mobile-menu.active{display:grid;gap:8px}.mobile-menu a{padding:14px 16px;border-radius:12px;background:rgba(214,228,255,.30)}.mobile-menu a:hover,.mobile-menu a:focus-visible{color:var(--primary);background:rgba(214,228,255,.70);outline:none}main{padding:28px 0 96px}.section{position:relative;padding:68px 0;scroll-margin-top:110px}.container{width:var(--container);margin:0 auto}.section-shell{position:relative;padding:34px;border-radius:28px;background:rgba(255,255,255,.74);border:1px solid rgba(10,102,255,.09);box-shadow:var(--shadow-soft);overflow:hidden}.section-shell:before{content:"";position:absolute;inset:0 0 auto auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(10,102,255,.16),transparent 62%);transform:translate(25%,-25%);pointer-events:none}.section-header{position:relative;z-index:1;display:grid;gap:16px;max-width:760px;margin-bottom:34px}.section-tag{display:inline-flex;align-items:center;gap:10px;width:fit-content;padding:10px 16px;border-radius:999px;background:rgba(214,228,255,.68);border:1px solid rgba(10,102,255,.08);color:var(--primary);font-size:.95rem;font-weight:600}.section-title{margin:0;font-family:"Syne",sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;color:var(--deep-blue);letter-spacing:-.03em}.gradient-text{background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent}.section-description{margin:0;max-width:640px;font-size:1.05rem;line-height:1.75;color:var(--muted)}.services-grid,.why-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.service-card,.why-card{position:relative;display:grid;gap:18px;padding:28px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(244,248,255,.95));border:1px solid rgba(10,102,255,.10);box-shadow:0 16px 36px rgba(10,31,68,.08);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;overflow:hidden}.service-card:after,.why-card:after{content:"";position:absolute;inset:0;background:linear-gradient(140deg,rgba(10,102,255,.10),transparent 42%,rgba(59,130,246,.08));opacity:0;transition:opacity .35s ease;pointer-events:none}.service-card:hover,.why-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:var(--shadow-hover);border-color:rgba(10,102,255,.20)}.service-card:hover:after,.why-card:hover:after{opacity:1}.card-top,.why-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.card-icon,.why-icon{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:18px;background:var(--gradient);color:var(--white);box-shadow:0 16px 32px rgba(10,102,255,.22);flex-shrink:0}.card-number,.why-badge{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:36px;padding:0 12px;border-radius:999px;background:rgba(214,228,255,.7);color:var(--primary);font-size:.88rem;font-weight:700;letter-spacing:.08em}.card-title,.why-title{margin:0;font-size:1.35rem;color:var(--deep-blue)}.card-description,.why-description{margin:0;color:var(--muted);line-height:1.75}.card-features,.why-points{display:grid;gap:12px;padding:0;margin:0;list-style:none;color:var(--text)}.card-features li,.why-points li{display:flex;align-items:flex-start;gap:10px;line-height:1.6}.feature-check,.point-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-top:2px;border-radius:50%;background:rgba(10,102,255,.12);color:var(--primary);font-size:.9rem;font-weight:800;flex-shrink:0}.card-tags{display:flex;flex-wrap:wrap;gap:10px}.tag{padding:9px 12px;border-radius:999px;background:rgba(214,228,255,.58);color:var(--deep-blue);font-size:.88rem;font-weight:600}.why-card{min-height:100%}.why-stat{display:flex;align-items:center;gap:14px;padding-top:4px}.stat-value{font-family:"Syne",sans-serif;font-size:2rem;line-height:1;color:var(--primary)}.stat-text{color:var(--muted);font-weight:500}.portfolio-shell{display:grid;gap:28px}.portfolio-filter{display:flex;flex-wrap:wrap;gap:12px}.filter-btn{border:1px solid rgba(10,102,255,.10);padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.82);color:var(--deep-blue);cursor:pointer;font-weight:600;transition:transform .3s ease,box-shadow .3s ease,background .3s ease,color .3s ease}.filter-btn:hover,.filter-btn:focus-visible,.filter-btn.active{background:var(--gradient);color:var(--white);box-shadow:0 14px 28px rgba(10,102,255,.22);transform:translateY(-2px);outline:none}.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.portfolio-item{transition:opacity .3s ease,transform .3s ease}.portfolio-item[hidden]{display:none}.portfolio-link{display:block;height:100%;padding:16px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(244,248,255,.92));border:1px solid rgba(10,102,255,.10);box-shadow:0 18px 38px rgba(10,31,68,.09);overflow:hidden;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}.portfolio-link:hover,.portfolio-link:focus-visible{transform:translateY(-8px) scale(1.01);box-shadow:var(--shadow-hover);border-color:rgba(10,102,255,.18);outline:none}.portfolio-image{position:relative;overflow:hidden;border-radius:18px;aspect-ratio:16/10;background:linear-gradient(135deg,rgba(10,102,255,.12),rgba(59,130,246,.04)),var(--light-blue)}.portfolio-preview{height:100%;object-fit:cover;transition:transform .55s ease}.portfolio-link:hover .portfolio-preview,.portfolio-link:focus-visible .portfolio-preview{transform:scale(1.08)}.portfolio-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:20px;background:linear-gradient(180deg,rgba(10,31,68,.02) 18%,rgba(10,31,68,.78) 100%);opacity:0;transition:opacity .4s ease}.portfolio-link:hover .portfolio-overlay,.portfolio-link:focus-visible .portfolio-overlay{opacity:1}.overlay-chip{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.14);color:var(--white);backdrop-filter:blur(8px);font-size:.92rem;font-weight:600}.portfolio-info{display:grid;gap:14px;padding:20px 6px 8px}.portfolio-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.portfolio-category{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:999px;background:rgba(214,228,255,.58);color:var(--primary);font-size:.86rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}.portfolio-title{margin:0;font-size:1.4rem;color:var(--deep-blue)}.portfolio-description{margin:0;color:var(--muted);line-height:1.7}.portfolio-tech{display:flex;flex-wrap:wrap;gap:10px}.portfolio-tech span{padding:9px 12px;border-radius:999px;border:1px solid rgba(10,102,255,.10);background:rgba(255,255,255,.84);color:var(--deep-blue);font-size:.9rem;font-weight:600}.reveal-up{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;transition-delay:var(--delay,0s)}.reveal-up.is-visible{opacity:1;transform:translateY(0)}@media (min-width:1081px){.mobile-menu{display:none!important}}@media (max-width:1080px){.nav-links{display:none}.menu-toggle{display:inline-flex}.services-grid,.why-grid,.portfolio-grid{grid-template-columns:1fr}}@media (max-width:768px){.navbar{padding:12px 0}.nav-container{gap:12px}.logo{font-size:1.08rem}.logo-mark{width:38px;height:38px;border-radius:12px}.cta-btn{display:none}.section{padding:48px 0}main{padding:18px 0 72px}.section-shell{padding:24px;border-radius:24px}.section-title{font-size:clamp(1.9rem,9vw,2.7rem)}.section-description{font-size:1rem}.service-card,.why-card,.portfolio-link{border-radius:20px}}@media (max-width:560px){.nav-container,.container,.mobile-menu{width:min(calc(100% - 1.2rem),100%)}.section-shell{padding:20px}.card-top,.why-top,.portfolio-meta{align-items:flex-start}.section-tag{font-size:.88rem}.card-icon,.why-icon{width:54px;height:54px}.portfolio-overlay{padding:16px}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal-up{opacity:1!important;transform:none!important}}
+</style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="loader">
-            <div class="loader-inner">
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
-            </div>
-            <span class="loader-text">Dabral Ventures</span>
-        </div>
-    </div>
-
-    <main>
-        <!-- Services Section -->
-        <section class="services section" id="services">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag reveal-up">
-                        <span class="tag-icon">💼</span>
-                        What We Do
-                    </span>
-                    <h2 class="section-title reveal-up" style="--delay: 0.1s">
-                        Services That <span class="gradient-text">Drive Results</span>
-                    </h2>
-                    <p class="section-description reveal-up" style="--delay: 0.2s">
-                        From concept to launch, we provide end-to-end digital solutions 
-                        tailored to your unique business needs
-                    </p>
-                </div>
-                
-                <div class="services-grid">
-                    <article class="service-card reveal-up" style="--delay: 0.1s" data-tilt>
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                </svg>
-                                <div class="icon-ring"></div>
-                            </div>
-                            <h3 class="card-title">Web Development</h3>
-                            <p class="card-description">
-                                Lightning-fast, SEO-optimized websites that captivate visitors 
-                                and convert them into loyal customers.
-                            </p>
-                            <ul class="card-features">
-                                <li><span class="feature-check">✓</span> Custom React/Next.js Development</li>
-                                <li><span class="feature-check">✓</span> E-commerce Solutions</li>
-                                <li><span class="feature-check">✓</span> CMS Integration</li>
-                                <li><span class="feature-check">✓</span> Performance Optimization</li>
-                            </ul>
-                            <div class="card-tags">
-                                <span class="tag">React</span>
-                                <span class="tag">Next.js</span>
-                                <span class="tag">Node.js</span>
-                            </div>
-                        </div>
-                        <div class="card-number">01</div>
-                    </article>
-                    
-                    <article class="service-card reveal-up" style="--delay: 0.2s" data-tilt>
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                                </svg>
-                                <div class="icon-ring"></div>
-                            </div>
-                            <h3 class="card-title">App Development</h3>
-                            <p class="card-description">
-                                Native and cross-platform mobile apps that deliver 
-                                exceptional user experiences on every device.
-                            </p>
-                            <ul class="card-features">
-                                <li><span class="feature-check">✓</span> iOS & Android Apps</li>
-                                <li><span class="feature-check">✓</span> Cross-Platform (Flutter/React Native)</li>
-                                <li><span class="feature-check">✓</span> App Store Optimization</li>
-                                <li><span class="feature-check">✓</span> Push Notifications & Analytics</li>
-                            </ul>
-                            <div class="card-tags">
-                                <span class="tag">Flutter</span>
-                                <span class="tag">React Native</span>
-                                <span class="tag">Swift</span>
-                            </div>
-                        </div>
-                        <div class="card-number">02</div>
-                    </article>
-                    
-                    <article class="service-card reveal-up" style="--delay: 0.3s" data-tilt>
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                                </svg>
-                                <div class="icon-ring"></div>
-                            </div>
-                            <h3 class="card-title">Digital Marketing</h3>
-                            <p class="card-description">
-                                Data-driven marketing strategies that boost your online 
-                                visibility and drive meaningful growth.
-                            </p>
-                            <ul class="card-features">
-                                <li><span class="feature-check">✓</span> SEO & Content Strategy</li>
-                                <li><span class="feature-check">✓</span> Social Media Marketing</li>
-                                <li><span class="feature-check">✓</span> PPC & Paid Advertising</li>
-                                <li><span class="feature-check">✓</span> Analytics & Reporting</li>
-                            </ul>
-                            <div class="card-tags">
-                                <span class="tag">SEO</span>
-                                <span class="tag">Google Ads</span>
-                                <span class="tag">Analytics</span>
-                            </div>
-                        </div>
-                        <div class="card-number">03</div>
-                    </article>
-                    
-                    <article class="service-card reveal-up" style="--delay: 0.4s" data-tilt>
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <div class="card-icon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                    <path d="M2 17l10 5 10-5"></path>
-                                    <path d="M2 12l10 5 10-5"></path>
-                                </svg>
-                                <div class="icon-ring"></div>
-                            </div>
-                            <h3 class="card-title">IT Services</h3>
-                            <p class="card-description">
-                                Comprehensive IT solutions to keep your business 
-                                running smoothly and securely 24/7.
-                            </p>
-                            <ul class="card-features">
-                                <li><span class="feature-check">✓</span> Cloud Infrastructure</li>
-                                <li><span class="feature-check">✓</span> DevOps & CI/CD</li>
-                                <li><span class="feature-check">✓</span> Cybersecurity Solutions</li>
-                                <li><span class="feature-check">✓</span> 24/7 Technical Support</li>
-                            </ul>
-                            <div class="card-tags">
-                                <span class="tag">AWS</span>
-                                <span class="tag">Docker</span>
-                                <span class="tag">Security</span>
-                            </div>
-                        </div>
-                        <div class="card-number">04</div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Why Us Section (Ethics) -->
-        <section class="why-us section" id="why-us">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag reveal-up">
-                        <span class="tag-icon">⭐</span>
-                        Why Choose Us
-                    </span>
-                    <h2 class="section-title reveal-up" style="--delay: 0.1s">
-                        We're Not Just <span class="gradient-text">Developers</span>
-                    </h2>
-                    <p class="section-description reveal-up" style="--delay: 0.2s">
-                        We're your growth partners committed to your success. 
-                        Here's what makes us different.
-                    </p>
-                </div>
-                
-                <div class="why-grid">
-                    <div class="why-card reveal-up" style="--delay: 0.1s">
-                        <div class="why-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                            </svg>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h3 class="why-title">Lightning Fast</h3>
-                        <p class="why-description">
-                            We deliver projects faster than industry standards without 
-                            compromising on quality. Time is money, we value yours.
-                        </p>
-                        <div class="why-stat">
-                            <span class="stat-value">2x</span>
-                            <span class="stat-text">Faster Delivery</span>
-                        </div>
-                    </div>
-                    
-                    <div class="why-card reveal-up" style="--delay: 0.2s">
-                        <div class="why-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                <path d="M9 12l2 2 4-4"></path>
-                            </svg>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h3 class="why-title">Quality Assured</h3>
-                        <p class="why-description">
-                            Every line of code is tested. Every pixel is perfected. 
-                            We don't ship until it's ready to impress.
-                        </p>
-                        <div class="why-stat">
-                            <span class="stat-value">100%</span>
-                            <span class="stat-text">Bug-Free Delivery</span>
-                        </div>
-                    </div>
-                    
-                    <div class="why-card reveal-up" style="--delay: 0.3s">
-                        <div class="why-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h3 class="why-title">Always There</h3>
-                        <p class="why-description">
-                            24/7 support isn't just a promise, it's our commitment. 
-                            Your success is our priority, day and night.
-                        </p>
-                        <div class="why-stat">
-                            <span class="stat-value">24/7</span>
-                            <span class="stat-text">Support Available</span>
-                        </div>
-                    </div>
-                    
-                    <div class="why-card reveal-up" style="--delay: 0.4s">
-                        <div class="why-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <line x1="12" y1="1" x2="12" y2="23"></line>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h3 class="why-title">Fair Pricing</h3>
-                        <p class="why-description">
-                            Premium quality at honest prices. No hidden fees, 
-                            no surprises. Transparent quotes, always.
-                        </p>
-                        <div class="why-stat">
-                            <span class="stat-value">30%</span>
-                            <span class="stat-text">Below Market Rate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section class="portfolio section" id="portfolio">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag reveal-up">
-                        <span class="tag-icon">🎨</span>
-                        Our Work
-                    </span>
-                    <h2 class="section-title reveal-up" style="--delay: 0.1s">
-                        Projects That <span class="gradient-text">Inspire</span>
-                    </h2>
-                    <p class="section-description reveal-up" style="--delay: 0.2s">
-                        A showcase of our finest work that helped businesses 
-                        achieve their digital goals
-                    </p>
-                </div>
-                
-                <div class="portfolio-filter reveal-up" style="--delay: 0.3s">
-                    <button class="filter-btn active" data-filter="all">All Projects</button>
-                    <button class="filter-btn" data-filter="web">Websites</button>
-                    <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
-                    <button class="filter-btn" data-filter="app">Apps</button>
-                </div>
-                
-                <div class="portfolio-section-content">
-                    <!-- Sticky CTA Card on Left -->
-                    <div class="portfolio-sticky-cta">
-                        <article class="portfolio-item portfolio-cta" data-category="cta">
-                            <a href="#contact" class="portfolio-link cta-link">
-                                <div class="cta-content">
-                                    <span class="cta-icon">🚀</span>
-                                    <h3 class="cta-title">Your Project<br>Could Be Next</h3>
-                                    <p class="cta-description">Let's build something amazing</p>
-                                    <span class="cta-btn">Start Project</span>
-                                </div>
-                            </a>
-                        </article>
-                    </div>
-                    
-                    <!-- Scrolling Projects -->
-                    <div class="portfolio-slider-wrapper">
-                        <div class="portfolio-slider" id="portfolio-slider">
-                            <!-- VroPay -->
-                        <article class="portfolio-item" data-category="web">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/vropay.png" alt="VroPay Preview" loading="lazy">
-                            </div>
-                            <a href="https://vropay.com" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/vropay.png" alt="VroPay" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">💳</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">Fintech</span>
-                                    <h3 class="portfolio-title">VroPay</h3>
-                                    <p class="portfolio-description">Modern fintech platform with payment solutions</p>
-                                    <div class="portfolio-tech">
-                                        <span>React</span>
-                                        <span>Node.js</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <!-- ElectroGlobe -->
-                        <article class="portfolio-item" data-category="ecommerce">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/electroglobe.png" alt="ElectroGlobe Preview" loading="lazy">
-                            </div>
-                            <a href="https://electroglobe.in" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/electroglobe.png" alt="ElectroGlobe" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">🔌</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">E-commerce</span>
-                                    <h3 class="portfolio-title">ElectroGlobe</h3>
-                                    <p class="portfolio-description">Full-featured electronics marketplace</p>
-                                    <div class="portfolio-tech">
-                                        <span>Next.js</span>
-                                        <span>MongoDB</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <!-- DesignNovation -->
-                        <article class="portfolio-item" data-category="web">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/designnovation.jpg" alt="DesignNovation Preview" loading="lazy">
-                            </div>
-                            <a href="https://designnovation.in" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/designnovation.jpg" alt="DesignNovation" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">🎨</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">Portfolio</span>
-                                    <h3 class="portfolio-title">DesignNovation</h3>
-                                    <p class="portfolio-description">Creative portfolio showcasing design</p>
-                                    <div class="portfolio-tech">
-                                        <span>React</span>
-                                        <span>GSAP</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <!-- Kalpvastra -->
-                        <article class="portfolio-item" data-category="ecommerce">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/kalpvastra.jpg" alt="Kalpvastra Preview" loading="lazy">
-                            </div>
-                            <a href="https://kalpvastra.vercel.app" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/kalpvastra.jpg" alt="Kalpvastra" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">👗</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">E-commerce</span>
-                                    <h3 class="portfolio-title">Kalpvastra</h3>
-                                    <p class="portfolio-description">Premium traditional wear online store</p>
-                                    <div class="portfolio-tech">
-                                        <span>Next.js</span>
-                                        <span>Tailwind</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <!-- Duplicates for seamless loop -->
-                        <article class="portfolio-item" data-category="web">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/vropay.png" alt="VroPay Preview" loading="lazy">
-                            </div>
-                            <a href="https://vropay.com" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/vropay.png" alt="VroPay" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">💳</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">Fintech</span>
-                                    <h3 class="portfolio-title">VroPay</h3>
-                                    <p class="portfolio-description">Modern fintech platform with payment solutions</p>
-                                    <div class="portfolio-tech">
-                                        <span>React</span>
-                                        <span>Node.js</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <article class="portfolio-item" data-category="ecommerce">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/electroglobe.png" alt="ElectroGlobe Preview" loading="lazy">
-                            </div>
-                            <a href="https://electroglobe.in" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/electroglobe.png" alt="ElectroGlobe" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">🔌</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">E-commerce</span>
-                                    <h3 class="portfolio-title">ElectroGlobe</h3>
-                                    <p class="portfolio-description">Full-featured electronics marketplace</p>
-                                    <div class="portfolio-tech">
-                                        <span>Next.js</span>
-                                        <span>MongoDB</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <article class="portfolio-item" data-category="web">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/designnovation.jpg" alt="DesignNovation Preview" loading="lazy">
-                            </div>
-                            <a href="https://designnovation.in" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/designnovation.jpg" alt="DesignNovation" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">🎨</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">Portfolio</span>
-                                    <h3 class="portfolio-title">DesignNovation</h3>
-                                    <p class="portfolio-description">Creative portfolio showcasing design</p>
-                                    <div class="portfolio-tech">
-                                        <span>React</span>
-                                        <span>GSAP</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        
-                        <article class="portfolio-item" data-category="ecommerce">
-                            <div class="portfolio-preview-popup">
-                                <img src="assets/previews/kalpvastra.jpg" alt="Kalpvastra Preview" loading="lazy">
-                            </div>
-                            <a href="https://kalpvastra.vercel.app" target="_blank" class="portfolio-link">
-                                <div class="portfolio-image">
-                                    <img src="assets/previews/kalpvastra.jpg" alt="Kalpvastra" class="portfolio-preview" loading="lazy">
-                                    <div class="image-placeholder">
-                                        <span class="placeholder-icon">👗</span>
-                                        <div class="placeholder-pattern"></div>
-                                    </div>
-                                    <div class="portfolio-overlay">
-                                        <span class="view-project">View Live</span>
-                                    </div>
-                                </div>
-                                <div class="portfolio-info">
-                                    <span class="portfolio-category">E-commerce</span>
-                                    <h3 class="portfolio-title">Kalpvastra</h3>
-                                    <p class="portfolio-description">Premium traditional wear online store</p>
-                                    <div class="portfolio-tech">
-                                        <span>Next.js</span>
-                                        <span>Tailwind</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
+<header class="navbar">
+<div class="nav-container">
+<a href="#" class="logo" aria-label="Dabral Ventures home"><span class="logo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 5h6.5c4.6 0 7.5 2.9 7.5 7s-2.9 7-7.5 7H5V5Zm6.2 11.2c2.7 0 4.3-1.5 4.3-4.2s-1.6-4.2-4.3-4.2H8.5v8.4h2.7Z" fill="currentColor"></path></svg></span>Dabral Ventures</a>
+<nav class="nav-links" aria-label="Primary navigation">
+<a href="#services">Services</a>
+<a href="#why-us">Why Us</a>
+<a href="#portfolio">Portfolio</a>
+</nav>
+<a href="#portfolio" class="cta-btn">View Portfolio</a>
+<button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open navigation" aria-controls="mobileMenu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#services">Services</a>
+<a href="#why-us">Why Us</a>
+<a href="#portfolio">Portfolio</a>
+</div>
+</header>
+<main>
+<section class="services section" id="services">
+<div class="container"><div class="section-shell">
+<div class="section-header">
+<span class="section-tag reveal-up">Premium Build Services</span>
+<h2 class="section-title reveal-up" style="--delay:.08s">Digital products engineered for <span class="gradient-text">clarity, speed, and scale</span></h2>
+<p class="section-description reveal-up" style="--delay:.16s">We design and deliver polished digital experiences that look premium, feel intuitive, and perform reliably across every stage of business growth.</p>
+</div>
+<div class="services-grid">
+<article class="service-card reveal-up" style="--delay:.08s"><div class="card-top"><div class="card-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18"></path><path d="M7 3v4"></path><path d="M17 3v4"></path><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 11h8"></path><path d="M8 15h5"></path></svg></div><span class="card-number">01</span></div><h3 class="card-title">Web Platforms</h3><p class="card-description">Conversion-focused websites and web applications built to load fast, rank well, and communicate your brand with confidence.</p><ul class="card-features"><li><span class="feature-check">&#10003;</span>Custom marketing sites and product experiences</li><li><span class="feature-check">&#10003;</span>Performance-first frontends with modern stacks</li><li><span class="feature-check">&#10003;</span>CMS, analytics, and scalable backend integrations</li></ul><div class="card-tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">SEO Ready</span></div></article>
+<article class="service-card reveal-up" style="--delay:.16s"><div class="card-top"><div class="card-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"></rect><path d="M10 6h4"></path><path d="M11.5 18h1"></path></svg></div><span class="card-number">02</span></div><h3 class="card-title">Mobile Apps</h3><p class="card-description">Smooth native-feeling mobile products designed for retention, reliability, and clean journeys on both Android and iOS.</p><ul class="card-features"><li><span class="feature-check">&#10003;</span>Product design systems tailored for mobile behavior</li><li><span class="feature-check">&#10003;</span>Cross-platform builds with polished interaction patterns</li><li><span class="feature-check">&#10003;</span>Secure APIs, notifications, and release support</li></ul><div class="card-tags"><span class="tag">Flutter</span><span class="tag">React Native</span><span class="tag">Launch Ready</span></div></article>
+<article class="service-card reveal-up" style="--delay:.24s"><div class="card-top"><div class="card-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"></path><path d="M8.5 10.5h7"></path><path d="M8.5 13.5h4.5"></path></svg></div><span class="card-number">03</span></div><h3 class="card-title">AI Systems</h3><p class="card-description">Practical AI features that automate work, unlock insights, and fit naturally into real business workflows without unnecessary complexity.</p><ul class="card-features"><li><span class="feature-check">&#10003;</span>Internal tools, assistants, and workflow automation</li><li><span class="feature-check">&#10003;</span>Smart dashboards, recommendations, and search experiences</li><li><span class="feature-check">&#10003;</span>API integrations with human-friendly interfaces</li></ul><div class="card-tags"><span class="tag">Automation</span><span class="tag">AI UX</span><span class="tag">Integrations</span></div></article>
+<article class="service-card reveal-up" style="--delay:.32s"><div class="card-top"><div class="card-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"></path><path d="M12 4v16"></path><circle cx="12" cy="12" r="9"></circle></svg></div><span class="card-number">04</span></div><h3 class="card-title">IT Consultancy</h3><p class="card-description">Architecture, infrastructure, and product strategy guidance that helps teams make confident technical decisions early.</p><ul class="card-features"><li><span class="feature-check">&#10003;</span>Roadmaps that balance budget, speed, and maintainability</li><li><span class="feature-check">&#10003;</span>Cloud, deployment, and platform scalability planning</li><li><span class="feature-check">&#10003;</span>Technical audits and hands-on optimization support</li></ul><div class="card-tags"><span class="tag">Cloud</span><span class="tag">Architecture</span><span class="tag">Strategy</span></div></article>
+</div></div></div>
+</section>
+<section class="why-us section" id="why-us">
+<div class="container"><div class="section-shell">
+<div class="section-header">
+<span class="section-tag reveal-up">Why Us</span>
+<h2 class="section-title reveal-up" style="--delay:.08s">A delivery approach rooted in <span class="gradient-text">ethics and accountability</span></h2>
+<p class="section-description reveal-up" style="--delay:.16s">Premium execution means more than visuals. We work transparently, protect trust, and build products that support sustainable long-term growth.</p>
+</div>
+<div class="why-grid">
+<article class="why-card reveal-up" style="--delay:.08s"><div class="why-top"><div class="why-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V7l-8-4Z"></path><path d="m9 12 2 2 4-4"></path></svg></div><span class="why-badge">Trust</span></div><h3 class="why-title">Transparent Delivery</h3><p class="why-description">Clear scopes, honest timelines, and visible progress so there are no surprises between kickoff and launch.</p><ul class="why-points"><li><span class="point-check">&#10003;</span>Straightforward communication and expectation setting</li><li><span class="point-check">&#10003;</span>Clean decisions documented for future scale</li></ul><div class="why-stat"><span class="stat-value">100%</span><span class="stat-text">scope visibility from day one</span></div></article>
+<article class="why-card reveal-up" style="--delay:.16s"><div class="why-top"><div class="why-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10V8a6 6 0 1 1 12 0v2"></path><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M12 14v2"></path></svg></div><span class="why-badge">Privacy</span></div><h3 class="why-title">Privacy-First Thinking</h3><p class="why-description">We treat user data, internal workflows, and platform access with the level of care premium digital products require.</p><ul class="why-points"><li><span class="point-check">&#10003;</span>Secure flows, sensible permissions, and resilient architecture</li><li><span class="point-check">&#10003;</span>Responsible AI and integration choices, not shortcuts</li></ul><div class="why-stat"><span class="stat-value">24/7</span><span class="stat-text">attention to platform reliability</span></div></article>
+<article class="why-card reveal-up" style="--delay:.24s"><div class="why-top"><div class="why-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h4v4"></path><path d="M20 4 14 10"></path><path d="M8 20H4v-4"></path><path d="M4 20 10 14"></path><path d="M14 14a4 4 0 1 1-4-4"></path></svg></div><span class="why-badge">Partnership</span></div><h3 class="why-title">Built for Long-Term Value</h3><p class="why-description">We avoid flashy waste and focus on systems that stay maintainable, adaptable, and commercially useful over time.</p><ul class="why-points"><li><span class="point-check">&#10003;</span>Modular decisions that reduce future rebuild pressure</li><li><span class="point-check">&#10003;</span>Practical solutions aligned to business reality</li></ul><div class="why-stat"><span class="stat-value">2x</span><span class="stat-text">better long-term platform readiness</span></div></article>
+<article class="why-card reveal-up" style="--delay:.32s"><div class="why-top"><div class="why-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><path d="M7 8h7a3 3 0 0 1 0 6H10a3 3 0 0 0 0 6h7"></path></svg></div><span class="why-badge">Fairness</span></div><h3 class="why-title">Fair Pricing, Premium Standards</h3><p class="why-description">The process stays lean, the quality stays high, and the investment stays transparent so you can plan with confidence.</p><ul class="why-points"><li><span class="point-check">&#10003;</span>Clear commercial logic behind every recommendation</li><li><span class="point-check">&#10003;</span>No unnecessary upsells or vague retainers</li></ul><div class="why-stat"><span class="stat-value">0</span><span class="stat-text">hidden costs in our delivery model</span></div></article>
+</div></div></div>
+</section>
+<section class="portfolio section" id="portfolio">
+<div class="container"><div class="section-shell portfolio-shell">
+<div class="section-header">
+<span class="section-tag reveal-up">Selected Portfolio</span>
+<h2 class="section-title reveal-up" style="--delay:.08s">Work shaped with <span class="gradient-text">precision and polish</span></h2>
+<p class="section-description reveal-up" style="--delay:.16s">A curated selection of live products and digital platforms crafted to balance elegant design with strong business outcomes.</p>
+</div>
+<div class="portfolio-filter reveal-up" style="--delay:.24s">
+<button class="filter-btn active" type="button" data-filter="all">All Projects</button>
+<button class="filter-btn" type="button" data-filter="web">Websites</button>
+<button class="filter-btn" type="button" data-filter="ecommerce">E-commerce</button>
+<button class="filter-btn" type="button" data-filter="app">Apps</button>
+</div>
+<div class="portfolio-grid">
+<article class="portfolio-item reveal-up" style="--delay:.10s" data-category="web"><a href="https://vropay.com" target="_blank" rel="noopener noreferrer" class="portfolio-link"><div class="portfolio-image"><img src="assets/previews/vropay.png" alt="VroPay project preview" class="portfolio-preview" loading="lazy"><div class="portfolio-overlay"><span class="overlay-chip">View Live</span><span class="overlay-chip">Premium UI</span></div></div><div class="portfolio-info"><div class="portfolio-meta"><span class="portfolio-category">Fintech</span><span class="tag">Website</span></div><h3 class="portfolio-title">VroPay</h3><p class="portfolio-description">A modern fintech platform with a refined interface, focused navigation, and a trustworthy product experience.</p><div class="portfolio-tech"><span>React</span><span>Node.js</span><span>Payments</span></div></div></a></article>
+<article class="portfolio-item reveal-up" style="--delay:.16s" data-category="ecommerce"><a href="https://electroglobe.in" target="_blank" rel="noopener noreferrer" class="portfolio-link"><div class="portfolio-image"><img src="assets/previews/electroglobe.png" alt="ElectroGlobe project preview" class="portfolio-preview" loading="lazy"><div class="portfolio-overlay"><span class="overlay-chip">View Live</span><span class="overlay-chip">Growth Ready</span></div></div><div class="portfolio-info"><div class="portfolio-meta"><span class="portfolio-category">E-commerce</span><span class="tag">Storefront</span></div><h3 class="portfolio-title">ElectroGlobe</h3><p class="portfolio-description">A scalable electronics marketplace designed for efficient browsing, stronger conversion, and a cleaner buying journey.</p><div class="portfolio-tech"><span>Next.js</span><span>MongoDB</span><span>Commerce</span></div></div></a></article>
+<article class="portfolio-item reveal-up" style="--delay:.22s" data-category="web"><a href="https://designnovation.in" target="_blank" rel="noopener noreferrer" class="portfolio-link"><div class="portfolio-image"><img src="assets/previews/designnovation.jpg" alt="DesignNovation project preview" class="portfolio-preview" loading="lazy"><div class="portfolio-overlay"><span class="overlay-chip">View Live</span><span class="overlay-chip">Creative Build</span></div></div><div class="portfolio-info"><div class="portfolio-meta"><span class="portfolio-category">Portfolio</span><span class="tag">Brand Site</span></div><h3 class="portfolio-title">DesignNovation</h3><p class="portfolio-description">A creative showcase with striking presentation, fluid storytelling, and visual depth tailored for a design-led brand.</p><div class="portfolio-tech"><span>React</span><span>GSAP</span><span>Motion</span></div></div></a></article>
+<article class="portfolio-item reveal-up" style="--delay:.28s" data-category="ecommerce app"><a href="https://kalpvastra.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-link"><div class="portfolio-image"><img src="assets/previews/kalpvastra.jpg" alt="Kalpvastra project preview" class="portfolio-preview" loading="lazy"><div class="portfolio-overlay"><span class="overlay-chip">View Live</span><span class="overlay-chip">Luxury Commerce</span></div></div><div class="portfolio-info"><div class="portfolio-meta"><span class="portfolio-category">Fashion</span><span class="tag">App + Web</span></div><h3 class="portfolio-title">Kalpvastra</h3><p class="portfolio-description">A premium traditional wear experience built to feel editorial, elegant, and effortless across devices.</p><div class="portfolio-tech"><span>Next.js</span><span>Tailwind</span><span>Responsive</span></div></div></a></article>
+</div></div></div>
+</section>
+</main>
+<script>
+const menu=document.getElementById("mobileMenu"),menuToggle=document.querySelector(".menu-toggle");function closeMenu(){if(!menu||!menuToggle)return;menu.classList.remove("active");menuToggle.setAttribute("aria-expanded","false")}function toggleMenu(){if(!menu||!menuToggle)return;menu.classList.toggle("active");menuToggle.setAttribute("aria-expanded",menu.classList.contains("active")?"true":"false")}document.querySelectorAll(".mobile-menu a").forEach(link=>{link.addEventListener("click",closeMenu)});document.addEventListener("click",event=>{if(!menu||!menuToggle)return;if(menu.classList.contains("active")&&!menu.contains(event.target)&&!menuToggle.contains(event.target))closeMenu()});window.addEventListener("resize",()=>{if(window.innerWidth>1080)closeMenu()});const revealItems=document.querySelectorAll(".reveal-up");if("IntersectionObserver"in window){const revealObserver=new IntersectionObserver((entries,observer)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}})},{threshold:.15,rootMargin:"0px 0px -40px 0px"});revealItems.forEach(item=>revealObserver.observe(item))}else revealItems.forEach(item=>item.classList.add("is-visible"));const filterButtons=document.querySelectorAll(".filter-btn"),portfolioItems=document.querySelectorAll(".portfolio-item");filterButtons.forEach(button=>{button.addEventListener("click",()=>{const filter=button.dataset.filter;filterButtons.forEach(btn=>btn.classList.remove("active"));button.classList.add("active");portfolioItems.forEach(item=>{const categories=item.dataset.category.split(" "),matches=filter==="all"||categories.includes(filter);item.hidden=!matches})})});
+</script>
 </body>
 </html>
