@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== NAVBAR SCROLL BEHAVIOR ==========
     const navbar = document.getElementById('navbar');
+    const siteHeader = document.querySelector('.site-header');
     const scrollProgress = document.getElementById('scroll-progress');
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -54,11 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollY = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         
-        // Add scrolled class
-        if (scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        // Add scrolled class for both old and new navbar
+        if (navbar) {
+            navbar.classList.toggle('scrolled', scrollY > 50);
+        }
+        
+        // For new site-header
+        if (siteHeader) {
+            siteHeader.classList.toggle('scrolled', scrollY > 30);
         }
 
         // Update scroll progress
@@ -67,19 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollProgress.style.width = `${progress}%`;
         }
 
-        // Update active nav link
+        // Update active nav link based on scroll position
+        let currentSection = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - 150;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
 
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+                currentSection = sectionId;
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === `#${currentSection}`) {
+                link.classList.add('active');
             }
         });
 
@@ -93,33 +101,46 @@ document.addEventListener('DOMContentLoaded', () => {
             ticking = true;
         }
     });
+    
+    // Initialize navbar state
+    updateNavbar();
 
     // ========== MOBILE MENU ==========
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 
+    const closeMenu = () => {
+        if (!menuToggle || !navMenu) return;
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    };
+
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
+            const isOpen = menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('menu-open', isOpen);
         });
 
         // Close menu on link click
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // Close menu on outside click
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                closeMenu();
+            }
+        });
+        
+        // Close menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 820) {
+                closeMenu();
             }
         });
     }
@@ -127,14 +148,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
-                const offsetTop = target.offsetTop - 80;
+                // Account for fixed navbar height + some padding
+                const navbarHeight = 100;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                
                 window.scrollTo({
-                    top: offsetTop,
+                    top: targetPosition,
                     behavior: 'smooth'
                 });
+                
+                // Close mobile menu if open
+                if (menuToggle && navMenu) {
+                    closeMenu();
+                }
             }
         });
     });
@@ -546,6 +578,48 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     initPortfolioSlider();
+
+    // ========== CONTACT FORM HANDLING ==========
+    const contactForm = document.querySelector('.contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = `
+                <span>Sending...</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/>
+                </svg>
+            `;
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                submitBtn.innerHTML = `
+                    <span>Message Sent!</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                `;
+                submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    }
 
     console.log('Dabral Ventures - Landing Page Loaded Successfully');
 });

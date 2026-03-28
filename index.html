@@ -26,7 +26,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
@@ -46,7 +46,112 @@
         </div>
     </div>
 
-    <main>
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="ambient ambient-three"></div>
+
+      <header class="site-header" id="navbar">
+        <div class="container">
+          <div class="nav-frame">
+            <a href="#top" class="brand">
+              <span class="brand-mark">DV</span>
+              <span class="brand-text">Dabral Ventures</span>
+            </a>
+
+            <nav class="nav-links" id="nav-menu">
+              <a class="nav-link" href="#top">Home</a>
+              <a class="nav-link" href="#services">Services</a>
+              <a class="nav-link" href="#why-us">Why Us</a>
+              <a class="nav-link" href="#portfolio">Portfolio</a>
+            </nav>
+
+            <a href="#contact" class="nav-cta">Get in Touch</a>
+
+            <button
+              type="button"
+              class="nav-toggle"
+              id="menu-toggle"
+              aria-label="Open menu"
+              aria-expanded="false"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero section">
+          <div class="container hero-grid">
+            <div class="hero-copy reveal-up">
+              <span class="eyebrow">Blue-chip digital execution</span>
+              <h1 class="hero-title">
+                We launch <span>design-forward</span> products that look premium and
+                perform like serious business tools.
+              </h1>
+              <p class="hero-text">
+                This HTML version keeps your portfolio content, but upgrades the visual
+                system with the stronger dark blue navbar and theme language from your
+                old concept.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#portfolio" class="button button-primary">See Our Work</a>
+                <a href="#services" class="button button-secondary">Explore Services</a>
+              </div>
+
+              <div class="hero-metrics">
+                <article class="metric-card reveal-up" style="--delay: 0.08s">
+                  <strong>4 core offers</strong>
+                  <span>Web, apps, AI, consultancy</span>
+                </article>
+                <article class="metric-card reveal-up" style="--delay: 0.14s">
+                  <strong>Fast launch flow</strong>
+                  <span>Strategy, build, release, support</span>
+                </article>
+              </div>
+            </div>
+
+            <div class="hero-terminal reveal-scale" style="--delay: 0.12s">
+              <div class="terminal-window">
+                <div class="terminal-bar">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                  <span class="terminal-file">launch-board.html</span>
+                </div>
+                <div class="terminal-body">
+                  <p><span class="terminal-muted">$</span> init product-suite --brand="dabral-ventures"</p>
+                  <p><span class="terminal-muted">$</span> load services</p>
+                  <p class="terminal-highlight">> Brand websites, app products, AI tools, IT consulting</p>
+                  <p><span class="terminal-muted">$</span> status</p>
+                  <p class="terminal-success">> Ready to build for growth-stage teams</p>
+                  <div class="terminal-divider"></div>
+                  <div class="terminal-stack">
+                    <div class="stack-chip">Web Development</div>
+                    <div class="stack-chip">App Development</div>
+                    <div class="stack-chip">AI Tools</div>
+                    <div class="stack-chip">IT Consultancy</div>
+                  </div>
+                  <div class="terminal-panel">
+                    <div>
+                      <span class="panel-label">Delivery model</span>
+                      <strong>Strategy to support</strong>
+                    </div>
+                    <div>
+                      <span class="panel-label">Visual direction</span>
+                      <strong>Dark blue / glass / code UI</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Services Section -->
         <section class="services section" id="services">
             <div class="container">
@@ -551,6 +656,94 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container contact-grid">
+                <div class="contact-info reveal-up">
+                    <span class="section-tag">
+                        <span class="tag-icon">📬</span>
+                        Contact
+                    </span>
+                    <h2 class="section-title" style="--delay: 0.1s">
+                        Ready to Start Your <span class="gradient-text">Next Project?</span>
+                    </h2>
+                    <p class="section-description" style="--delay: 0.2s">
+                        Let's discuss how we can help transform your ideas into reality. 
+                        Whether it's a website, app, or AI solution - we're here to help.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">Email</span>
+                            <strong>hello@dabralventures.com</strong>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Focus</span>
+                            <strong>Brand sites, apps, AI tools</strong>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Response</span>
+                            <strong>Within 24 hours</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal-up" style="--delay: 0.15s">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-type">Project type</label>
+                        <select id="project-type">
+                            <option value="website">Website</option>
+                            <option value="app">Mobile App</option>
+                            <option value="ai">AI Tool</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="Tell us what you want to build..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Send Enquiry</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="brand-mark">DV</span>
+                        <span class="brand-text">Dabral Ventures</span>
+                    </div>
+                    <p class="footer-tagline">Building digital products that scale your business.</p>
+                </div>
+                <a href="#top" class="back-to-top">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
+                    Back to top
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <p>&copy; 2026 Dabral Ventures. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </main>
 
     <!-- JavaScript -->
