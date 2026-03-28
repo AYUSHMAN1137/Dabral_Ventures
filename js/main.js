@@ -621,5 +621,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ========== PARTICLES SYSTEM ==========
+    const createParticles = () => {
+        const particlesContainer = document.getElementById('particles');
+        if (!particlesContainer) return;
+
+        const particleCount = 35;
+        // Light theme friendly colors for particles
+        const colors = ['#00d4ff', '#0ea5e9', '#3b82f6', '#1e293b', '#94a3b8'];
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particle.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                opacity: ${Math.random() * 0.4 + 0.1};
+                animation: particleFloat ${Math.random() * 20 + 15}s linear infinite;
+                animation-delay: -${Math.random() * 20}s;
+                box-shadow: 0 0 ${size * 2}px ${color}40;
+            `;
+            particlesContainer.appendChild(particle);
+        }
+    };
+    createParticles();
+
+    // ========== SOCIAL FAB (Floating Action Button) ==========
+    const socialFab = document.getElementById('socialFab');
+    const fabMain = document.getElementById('fabMain');
+    
+    if (socialFab && fabMain) {
+        // Toggle FAB on click (for mobile)
+        fabMain.addEventListener('click', (e) => {
+            socialFab.classList.toggle('active');
+        });
+        
+        // Close FAB when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!socialFab.contains(e.target) && socialFab.classList.contains('active')) {
+                socialFab.classList.remove('active');
+            }
+        });
+        
+        // Close FAB on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (socialFab.classList.contains('active')) {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    socialFab.classList.remove('active');
+                }, 100);
+            }
+        }, { passive: true });
+    }
+
     console.log('Dabral Ventures - Landing Page Loaded Successfully');
 });
