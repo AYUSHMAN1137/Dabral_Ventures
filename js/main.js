@@ -256,10 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ========== PORTFOLIO ITEM HOVER ==========
+    const portfolioSliderWrapper = document.querySelector('.portfolio-slider-wrapper');
     portfolioItems.forEach(item => {
         const image = item.querySelector('.portfolio-image img');
-        
+
         item.addEventListener('mouseenter', () => {
+            if (portfolioSliderWrapper && portfolioSliderWrapper.classList.contains('is-slider-pointer-down')) {
+                return;
+            }
             if (image) {
                 image.style.transform = 'scale(1.1)';
             }
@@ -274,43 +278,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== PORTFOLIO PREVIEW IMAGE LOADER ==========
     // Supports jpg, jpeg, png formats
-    const loadPreviewImage = (imgElement, basePath) => {
-        const formats = ['jpg', 'jpeg', 'png', 'webp'];
-        let currentIndex = 0;
-        
-        const tryNextFormat = () => {
-            if (currentIndex >= formats.length) {
-                // All formats failed, keep placeholder
-                imgElement.style.display = 'none';
-                return;
-            }
-            
-            const testImg = new Image();
-            const src = `${basePath}.${formats[currentIndex]}`;
-            
-            testImg.onload = () => {
-                imgElement.src = src;
-                imgElement.style.display = '';
-            };
-            
-            testImg.onerror = () => {
-                currentIndex++;
-                tryNextFormat();
-            };
-            
-            testImg.src = src;
-        };
-        
-        tryNextFormat();
-    };
+    // Preview image loading handled inline above
 
-    // Load all preview images with format detection
+    // Load all preview images - use the exact src specified in HTML
     document.querySelectorAll('.portfolio-preview, .portfolio-preview-popup img').forEach(img => {
         const src = img.getAttribute('src');
         if (src) {
-            // Extract base path without extension
-            const basePath = src.replace(/\.(jpg|jpeg|png|webp)$/i, '');
-            loadPreviewImage(img, basePath);
+            // Just verify the image loads, no format guessing needed
+            const testImg = new Image();
+            testImg.onload = () => {
+                img.src = src;
+                img.style.display = '';
+            };
+            testImg.onerror = () => {
+                img.style.display = 'none';
+            };
+            testImg.src = src;
         }
     });
 
@@ -409,7 +392,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let startX = 0;
         let startCurrentX = 0;
         let lastMouseX = 0;
+        let lastTime = Date.now();
         let velocity = 0;
+        let momentumVelocity = 0;
+        const velocityHistory = [];
+        const maxVelocitySamples = 6;
+        const momentumFriction = 0.935;
+        const minMomentum = 0.12;
+        let capturedPointerId = null;
+        let dragCommitted = false;
+        let suppressNextClick = false;
+        let pendingLink = null;
+        const dragThresholdPx = 8;
         let animationId = null;
         let sliderWidth = 0;
         let contentWidth = 0;
@@ -435,6 +429,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             sliderWidth = contentWidth;
+
+            slider.querySelectorAll('img').forEach((img) => {
+                img.setAttribute('draggable', 'false');
+            });
+            slider.querySelectorAll('a').forEach((a) => {
+                a.setAttribute('draggable', 'false');
+            });
         };
         
         setupClones();
@@ -451,60 +452,90 @@ document.addEventListener('DOMContentLoaded', () => {
         // Animation loop
         const animate = () => {
             if (!isDragging) {
-                // Ease current speed towards target speed
                 currentSpeed += (targetSpeed - currentSpeed) * 0.02;
-                
-                // Move slider
                 currentX += direction * currentSpeed;
-                
-                // Loop seamlessly
+
+                if (Math.abs(momentumVelocity) > minMomentum) {
+                    currentX += momentumVelocity;
+                    momentumVelocity *= momentumFriction;
+                    if (Math.abs(momentumVelocity) < minMomentum) {
+                        momentumVelocity = 0;
+                    }
+                }
+
                 if (direction === -1 && currentX <= -sliderWidth) {
                     currentX += sliderWidth;
                 } else if (direction === 1 && currentX >= 0) {
                     currentX -= sliderWidth;
                 }
-                
+
                 slider.style.transform = `translateX(${currentX}px)`;
             }
-            
+
             animationId = requestAnimationFrame(animate);
         };
         
         animate();
         
-        // Get pointer position (works for both mouse and touch)
-        const getPointerX = (e) => {
-            return e.touches ? e.touches[0].clientX : e.clientX;
-        };
-        
-        // Drag start
+        const getPointerX = (e) => e.clientX;
+
         const onDragStart = (e) => {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+            e.preventDefault();
+
+            pendingLink = e.target.closest && e.target.closest('a[href]');
+
             isDragging = true;
+            dragCommitted = false;
+            suppressNextClick = false;
+            capturedPointerId = e.pointerId;
+            try {
+                wrapper.setPointerCapture(e.pointerId);
+            } catch (err) { /* ignore */ }
+
+            wrapper.classList.add('is-slider-pointer-down');
+
             startX = getPointerX(e);
             startCurrentX = currentX;
             lastMouseX = startX;
+            lastTime = performance.now();
             velocity = 0;
-            
+            velocityHistory.length = 0;
+            momentumVelocity = 0;
+
             slider.style.cursor = 'grabbing';
             wrapper.style.cursor = 'grabbing';
         };
-        
-        // Drag move
+
         const onDragMove = (e) => {
-            if (!isDragging) return;
-            
+            if (!isDragging || e.pointerId !== capturedPointerId) return;
+
             const currentPointerX = getPointerX(e);
-            const diff = currentPointerX - startX;
+            const totalDelta = Math.abs(currentPointerX - startX);
+            if (totalDelta > dragThresholdPx) {
+                if (!dragCommitted) {
+                    dragCommitted = true;
+                }
+                e.preventDefault();
+            }
+            const currentTime = performance.now();
+            const timeDelta = Math.max(currentTime - lastTime, 1);
             const mouseDelta = currentPointerX - lastMouseX;
-            
-            // Calculate velocity for momentum
-            velocity = mouseDelta;
+            const sample = mouseDelta / timeDelta;
+
+            velocityHistory.push(sample);
+            if (velocityHistory.length > maxVelocitySamples) {
+                velocityHistory.shift();
+            }
+            velocity = sample;
+
             lastMouseX = currentPointerX;
-            
-            // Update position
+            lastTime = currentTime;
+
+            const diff = currentPointerX - startX;
             currentX = startCurrentX + diff;
-            
-            // Keep within bounds with loop
+
             if (currentX <= -sliderWidth) {
                 currentX += sliderWidth;
                 startCurrentX += sliderWidth;
@@ -512,44 +543,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentX -= sliderWidth;
                 startCurrentX -= sliderWidth;
             }
-            
+
             slider.style.transform = `translateX(${currentX}px)`;
         };
-        
-        // Drag end
+
         const onDragEnd = (e) => {
             if (!isDragging) return;
+            if (e.pointerId !== capturedPointerId) return;
+
+            const didDrag = dragCommitted;
+
             isDragging = false;
-            
+            wrapper.classList.remove('is-slider-pointer-down');
+            if (didDrag) {
+                suppressNextClick = true;
+            }
+            dragCommitted = false;
+
+            const linkToActivate = !didDrag ? pendingLink : null;
+            pendingLink = null;
+
+            if (capturedPointerId != null) {
+                try {
+                    wrapper.releasePointerCapture(capturedPointerId);
+                } catch (err) { /* ignore */ }
+                capturedPointerId = null;
+            }
+
             slider.style.cursor = 'grab';
             wrapper.style.cursor = 'grab';
-            
-            // Calculate swipe speed and direction based on velocity
-            const absVelocity = Math.abs(velocity);
-            
-            if (absVelocity > 5) {
-                // Fast swipe detected - change direction based on swipe
-                if (velocity > 0) {
-                    direction = 1;
-                } else {
-                    direction = -1;
+
+            const avgVel =
+                velocityHistory.length > 0
+                    ? velocityHistory.reduce((a, b) => a + b, 0) / velocityHistory.length
+                    : velocity;
+            const absVel = Math.abs(avgVel);
+
+            if (absVel > 0.08) {
+                const frameScale = 16.67;
+                momentumVelocity = avgVel * frameScale;
+                const maxMomentum = 48;
+                momentumVelocity = Math.max(-maxMomentum, Math.min(maxMomentum, momentumVelocity));
+                if (absVel > 0.35) {
+                    direction = avgVel > 0 ? 1 : -1;
                 }
-                
-                const boostSpeed = Math.min(absVelocity * 0.5, 15);
-                currentSpeed = boostSpeed;
-                targetSpeed = baseSpeed;
+            } else {
+                momentumVelocity = 0;
+            }
+
+            velocityHistory.length = 0;
+            targetSpeed = baseSpeed;
+
+            if (linkToActivate) {
+                linkToActivate.click();
             }
         };
+
+        wrapper.addEventListener('dragstart', (ev) => {
+            ev.preventDefault();
+        }, true);
         
-        // Mouse events
-        wrapper.addEventListener('mousedown', onDragStart);
-        document.addEventListener('mousemove', onDragMove);
-        document.addEventListener('mouseup', onDragEnd);
-        
-        // Touch events
-        wrapper.addEventListener('touchstart', onDragStart, { passive: true });
-        document.addEventListener('touchmove', onDragMove, { passive: true });
-        document.addEventListener('touchend', onDragEnd);
+        wrapper.addEventListener(
+            'click',
+            (e) => {
+                if (!suppressNextClick) return;
+                suppressNextClick = false;
+                e.preventDefault();
+                e.stopPropagation();
+            },
+            true
+        );
+
+        wrapper.addEventListener('pointerdown', onDragStart, { passive: false });
+        wrapper.addEventListener('pointermove', onDragMove, { passive: false });
+        wrapper.addEventListener('pointerup', onDragEnd);
+        wrapper.addEventListener('pointercancel', onDragEnd);
+        wrapper.addEventListener('lostpointercapture', (e) => {
+            if (isDragging && e.pointerId === capturedPointerId) {
+                onDragEnd(e);
+            }
+        });
         
         // Set initial cursor
         wrapper.style.cursor = 'grab';
@@ -657,28 +730,174 @@ document.addEventListener('DOMContentLoaded', () => {
     const fabMain = document.getElementById('fabMain');
     
     if (socialFab && fabMain) {
-        // Toggle FAB on click (for mobile)
-        fabMain.addEventListener('click', (e) => {
-            socialFab.classList.toggle('active');
-        });
+        // Drag functionality
+        let isDraggingFab = false;
+        let fabStartX = 0;
+        let fabStartY = 0;
+        let fabOffsetX = 0;
+        let fabOffsetY = 0;
+        let hasMoved = false;
+        const dragThreshold = 5; // pixels to distinguish drag from click
         
-        // Close FAB when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!socialFab.contains(e.target) && socialFab.classList.contains('active')) {
-                socialFab.classList.remove('active');
+        // Load saved position from localStorage
+        const loadFabPosition = () => {
+            const savedPosition = localStorage.getItem('fabPosition');
+            if (savedPosition) {
+                const { bottom, right } = JSON.parse(savedPosition);
+                socialFab.style.bottom = bottom;
+                socialFab.style.right = right;
             }
-        });
+        };
         
-        // Close FAB on scroll
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (socialFab.classList.contains('active')) {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    socialFab.classList.remove('active');
-                }, 100);
+        // Save position to localStorage
+        const saveFabPosition = () => {
+            const position = {
+                bottom: socialFab.style.bottom || '40px',
+                right: socialFab.style.right || '24px'
+            };
+            localStorage.setItem('fabPosition', JSON.stringify(position));
+        };
+        
+        // Start dragging
+        const onFabDragStart = (e) => {
+            // Prevent dragging on option buttons
+            if (e.target.closest('.fab-option')) return;
+            
+            const touch = e.type === 'touchstart' ? e.touches[0] : e;
+            fabStartX = touch.clientX;
+            fabStartY = touch.clientY;
+            
+            const rect = socialFab.getBoundingClientRect();
+            fabOffsetX = touch.clientX - rect.left;
+            fabOffsetY = touch.clientY - rect.top;
+            
+            isDraggingFab = true;
+            hasMoved = false;
+            
+            // Add dragging class to disable hover effects
+            socialFab.classList.add('dragging');
+            socialFab.classList.remove('active');
+            
+            socialFab.style.transition = 'none';
+            socialFab.style.cursor = 'grabbing';
+        };
+        
+        // Dragging
+        const onFabDragMove = (e) => {
+            if (!isDraggingFab) return;
+            
+            const touch = e.type === 'touchmove' ? e.touches[0] : e;
+            const deltaX = Math.abs(touch.clientX - fabStartX);
+            const deltaY = Math.abs(touch.clientY - fabStartY);
+            
+            if (deltaX > dragThreshold || deltaY > dragThreshold) {
+                hasMoved = true;
             }
-        }, { passive: true });
+            
+            if (!hasMoved) return;
+            
+            e.preventDefault();
+            
+            const x = touch.clientX - fabOffsetX;
+            const y = touch.clientY - fabOffsetY;
+            
+            // Calculate position from bottom-right
+            const bottom = window.innerHeight - y - socialFab.offsetHeight;
+            const right = window.innerWidth - x - socialFab.offsetWidth;
+            
+            // Constrain to viewport with padding
+            const minDistance = 10;
+            const maxBottom = window.innerHeight - socialFab.offsetHeight - minDistance;
+            const maxRight = window.innerWidth - socialFab.offsetWidth - minDistance;
+            
+            socialFab.style.bottom = Math.max(minDistance, Math.min(maxBottom, bottom)) + 'px';
+            socialFab.style.right = Math.max(minDistance, Math.min(maxRight, right)) + 'px';
+        };
+        
+        // End dragging
+        const onFabDragEnd = (e) => {
+            if (!isDraggingFab) return;
+            
+            isDraggingFab = false;
+            
+            // Remove dragging class to re-enable hover effects
+            socialFab.classList.remove('dragging');
+            
+            socialFab.style.transition = '';
+            socialFab.style.cursor = 'grab';
+            
+            if (hasMoved) {
+                saveFabPosition();
+                // Prevent click event from firing
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            hasMoved = false;
+        };
+        
+        // Add event listeners for dragging
+        fabMain.addEventListener('mousedown', onFabDragStart);
+        document.addEventListener('mousemove', onFabDragMove);
+        document.addEventListener('mouseup', onFabDragEnd);
+        
+        fabMain.addEventListener('touchstart', onFabDragStart, { passive: true });
+        document.addEventListener('touchmove', onFabDragMove, { passive: false });
+        document.addEventListener('touchend', onFabDragEnd);
+        
+        // Load saved position on page load
+        loadFabPosition();
+        
+        // Note: Hover behavior is handled by CSS - no click toggle needed
+        // FAB expands only on hover, not on click
+    }
+
+    // ========== ABOUT SECTION IMAGE CAROUSEL ==========
+    const aboutCarousel = document.querySelector('.about-carousel');
+    if (aboutCarousel) {
+        const slides = aboutCarousel.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dots .dot-accent');
+        let currentSlide = 0;
+        let carouselInterval;
+
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (dots[i]) dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlide = index;
+        };
+
+        const nextSlide = () => {
+            const next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        };
+
+        const startCarousel = () => {
+            carouselInterval = setInterval(nextSlide, 4000);
+        };
+
+        const stopCarousel = () => {
+            clearInterval(carouselInterval);
+        };
+
+        // Click on dots to navigate
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopCarousel();
+                showSlide(index);
+                startCarousel();
+            });
+        });
+
+        // Start auto-play
+        startCarousel();
+
+        // Pause on hover
+        aboutCarousel.addEventListener('mouseenter', stopCarousel);
+        aboutCarousel.addEventListener('mouseleave', startCarousel);
     }
 
     console.log('Dabral Ventures - Landing Page Loaded Successfully');
