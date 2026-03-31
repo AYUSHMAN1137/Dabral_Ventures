@@ -21,6 +21,51 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     }
 
+    // ========== TYPEWRITER EFFECT ==========
+    const typewriterElement = document.getElementById('typewriter');
+    const words = ['design-forward', 'innovative', 'scalable', 'modern', 'premium'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 80;
+    const deletingSpeed = 40;
+    const pauseBeforeDelete = 1800;
+
+    function typeWriter() {
+        if (!typewriterElement) return;
+        
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            // Deleting characters
+            typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            
+            if (charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                // Instant start - no pause before typing
+                typeWriter();
+            } else {
+                setTimeout(typeWriter, deletingSpeed);
+            }
+        } else {
+            // Typing characters
+            typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            
+            if (charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(typeWriter, pauseBeforeDelete);
+            } else {
+                setTimeout(typeWriter, typingSpeed);
+            }
+        }
+    }
+
+    // Start typewriter after a small delay
+    setTimeout(typeWriter, 1000);
+
     // ========== PRELOADER ==========
     const preloader = document.getElementById('preloader');
     

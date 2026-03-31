@@ -125,14 +125,14 @@ img {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  width: min(1300px, calc(100% - 48px));
+  width: min(1360px, calc(100% - 48px));
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Shrink navbar on scroll */
 .site-header.scrolled {
   top: 8px;
-  width: min(1000px, calc(100% - 40px));
+  width: min(1060px, calc(100% - 40px));
 }
 
 .nav-frame {
@@ -398,6 +398,14 @@ img {
   background-clip: text;
 }
 
+/* Typewriter Effect */
+.typewriter-text {
+  display: inline-block;
+  min-width: 14ch;
+  min-height: 1.2em;
+  vertical-align: top;
+}
+
 .hero-text,
 .section-description,
 .portfolio-body p,
@@ -514,6 +522,9 @@ img {
 /* ========== TERMINAL / CODE WINDOW ========== */
 .hero-terminal {
   position: relative;
+  margin-left: 40px;
+  align-self: flex-start;
+  margin-top: 60px;
 }
 
 .terminal-window {
