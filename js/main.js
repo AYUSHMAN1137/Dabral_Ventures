@@ -21,6 +21,58 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     }
 
+    // ========== CUSTOM CURSOR ==========
+    const cursorDot = document.getElementById('cursor-dot');
+    
+    // Check if not touch device
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    
+    if (!isTouchDevice && cursorDot) {
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        document.body.classList.add('cursor-active');
+        
+        // All interactive elements
+        const interactiveElements = 'a, button, input, textarea, select, [role="button"], .nav-link, .nav-cta, .portfolio-link, .testimonial-card, .filter-btn';
+        
+        // Instant cursor movement
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+        
+        // Hover effect on interactive elements
+        document.querySelectorAll(interactiveElements).forEach(el => {
+            el.style.cursor = 'none';
+            
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+            });
+        });
+        
+        // Click effect
+        document.addEventListener('mousedown', () => {
+            cursorDot.classList.add('cursor-click');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            cursorDot.classList.remove('cursor-click');
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursorDot.style.opacity = '1';
+        });
+    }
+
     // ========== TYPEWRITER EFFECT ==========
     const typewriterElement = document.getElementById('typewriter');
     const words = ['design-forward', 'innovative', 'scalable', 'modern', 'premium'];
@@ -775,126 +827,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const fabMain = document.getElementById('fabMain');
     
     if (socialFab && fabMain) {
-        // Drag functionality
-        let isDraggingFab = false;
-        let fabStartX = 0;
-        let fabStartY = 0;
-        let fabOffsetX = 0;
-        let fabOffsetY = 0;
-        let hasMoved = false;
-        const dragThreshold = 5; // pixels to distinguish drag from click
+        // Toggle FAB on click (for mobile)
+        fabMain.addEventListener('click', (e) => {
+            socialFab.classList.toggle('active');
+        });
         
-        // Load saved position from localStorage
-        const loadFabPosition = () => {
-            const savedPosition = localStorage.getItem('fabPosition');
-            if (savedPosition) {
-                const { bottom, right } = JSON.parse(savedPosition);
-                socialFab.style.bottom = bottom;
-                socialFab.style.right = right;
+        // Close FAB when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!socialFab.contains(e.target) && socialFab.classList.contains('active')) {
+                socialFab.classList.remove('active');
             }
-        };
+        });
         
-        // Save position to localStorage
-        const saveFabPosition = () => {
-            const position = {
-                bottom: socialFab.style.bottom || '40px',
-                right: socialFab.style.right || '24px'
-            };
-            localStorage.setItem('fabPosition', JSON.stringify(position));
-        };
-        
-        // Start dragging
-        const onFabDragStart = (e) => {
-            // Prevent dragging on option buttons
-            if (e.target.closest('.fab-option')) return;
-            
-            const touch = e.type === 'touchstart' ? e.touches[0] : e;
-            fabStartX = touch.clientX;
-            fabStartY = touch.clientY;
-            
-            const rect = socialFab.getBoundingClientRect();
-            fabOffsetX = touch.clientX - rect.left;
-            fabOffsetY = touch.clientY - rect.top;
-            
-            isDraggingFab = true;
-            hasMoved = false;
-            
-            // Add dragging class to disable hover effects
-            socialFab.classList.add('dragging');
-            socialFab.classList.remove('active');
-            
-            socialFab.style.transition = 'none';
-            socialFab.style.cursor = 'grabbing';
-        };
-        
-        // Dragging
-        const onFabDragMove = (e) => {
-            if (!isDraggingFab) return;
-            
-            const touch = e.type === 'touchmove' ? e.touches[0] : e;
-            const deltaX = Math.abs(touch.clientX - fabStartX);
-            const deltaY = Math.abs(touch.clientY - fabStartY);
-            
-            if (deltaX > dragThreshold || deltaY > dragThreshold) {
-                hasMoved = true;
+        // Close FAB on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (socialFab.classList.contains('active')) {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    socialFab.classList.remove('active');
+                }, 100);
             }
-            
-            if (!hasMoved) return;
-            
-            e.preventDefault();
-            
-            const x = touch.clientX - fabOffsetX;
-            const y = touch.clientY - fabOffsetY;
-            
-            // Calculate position from bottom-right
-            const bottom = window.innerHeight - y - socialFab.offsetHeight;
-            const right = window.innerWidth - x - socialFab.offsetWidth;
-            
-            // Constrain to viewport with padding
-            const minDistance = 10;
-            const maxBottom = window.innerHeight - socialFab.offsetHeight - minDistance;
-            const maxRight = window.innerWidth - socialFab.offsetWidth - minDistance;
-            
-            socialFab.style.bottom = Math.max(minDistance, Math.min(maxBottom, bottom)) + 'px';
-            socialFab.style.right = Math.max(minDistance, Math.min(maxRight, right)) + 'px';
-        };
-        
-        // End dragging
-        const onFabDragEnd = (e) => {
-            if (!isDraggingFab) return;
-            
-            isDraggingFab = false;
-            
-            // Remove dragging class to re-enable hover effects
-            socialFab.classList.remove('dragging');
-            
-            socialFab.style.transition = '';
-            socialFab.style.cursor = 'grab';
-            
-            if (hasMoved) {
-                saveFabPosition();
-                // Prevent click event from firing
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            
-            hasMoved = false;
-        };
-        
-        // Add event listeners for dragging
-        fabMain.addEventListener('mousedown', onFabDragStart);
-        document.addEventListener('mousemove', onFabDragMove);
-        document.addEventListener('mouseup', onFabDragEnd);
-        
-        fabMain.addEventListener('touchstart', onFabDragStart, { passive: true });
-        document.addEventListener('touchmove', onFabDragMove, { passive: false });
-        document.addEventListener('touchend', onFabDragEnd);
-        
-        // Load saved position on page load
-        loadFabPosition();
-        
-        // Note: Hover behavior is handled by CSS - no click toggle needed
-        // FAB expands only on hover, not on click
+        }, { passive: true });
     }
 
     // ========== ABOUT SECTION IMAGE CAROUSEL ==========
