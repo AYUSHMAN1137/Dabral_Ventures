@@ -903,6 +903,14 @@ img {
     line-height: 1.6;
 }
 
+/* Footer Links Container - Use this to control position of all footer text links */
+.footer-links-container {
+    position: relative;
+    top: -20px; /* Adjust this value to move up/down - negative moves UP */
+    /* Increase the negative value (e.g., -50px, -60px) to move more UP */
+    /* Decrease (e.g., -30px, -20px) to move less UP */
+}
+
 .footer-links-group {
     display: flex;
     gap: 80px;
