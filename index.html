@@ -17,10 +17,22 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     
-    <!-- Disable scroll restoration on mobile -->
+    <!-- Save and restore scroll position -->
     <script>
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-        if (window.innerWidth <= 768) window.scrollTo(0, 0);
+        
+        // Save scroll position before page unload
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        });
+        
+        // Restore scroll position after page load
+        window.addEventListener('load', () => {
+            const savedPosition = sessionStorage.getItem('scrollPosition');
+            if (savedPosition !== null) {
+                window.scrollTo(0, parseInt(savedPosition));
+            }
+        });
     </script>
     
     <!-- Fonts -->
@@ -95,73 +107,61 @@
               <div id="particles"></div>
           </div>
           
-          <div class="container hero-grid">
-            <div class="hero-copy reveal-up">
-              <span class="eyebrow">Blue-chip digital execution</span>
-              <h1 class="hero-title">
-                We launch<br>
-                <span class="typewriter-text" id="typewriter"></span><br>
-                products that look premium and perform like serious business tools.
-              </h1>
-              <p class="hero-text">
-                This HTML version keeps your portfolio content, but upgrades the visual
-                system with the stronger dark blue navbar and theme language from your
-                old concept.
-              </p>
-
-              <div class="hero-actions">
-                <a href="#portfolio" class="button button-primary">See Our Work</a>
-                <a href="#services" class="button button-secondary">Explore Services</a>
+          <div class="container hero-grid-new">
+            <div class="hero-content-new reveal-up">
+              <!-- Eyebrow badge -->
+              <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                <span>Web &bull; Apps &bull; AI &bull; Marketing</span>
               </div>
 
-              <div class="hero-metrics">
-                <article class="metric-card reveal-up" style="--delay: 0.08s">
-                  <strong>4 core offers</strong>
-                  <span>Web, apps, AI, consultancy</span>
-                </article>
-                <article class="metric-card reveal-up" style="--delay: 0.14s">
-                  <strong>Fast launch flow</strong>
-                  <span>Strategy, build, release, support</span>
-                </article>
+              <h1 class="hero-title-new">
+                We Build
+                <span class="highlight-cyan">Digital Products</span>
+                That Actually Grow Your Business.
+              </h1>
+              
+              <p class="hero-desc-new">
+                From stunning websites to intelligent AI tools — we craft high-performance
+                digital solutions that turn your ideas into revenue-driving products.
+              </p>
+
+              <div class="hero-actions-new">
+                <a href="#portfolio" class="btn-cyan">See Our Work</a>
+                <a href="#services" class="btn-outline">Explore Services</a>
+              </div>
+
+              <!-- Trust strip -->
+              <div class="hero-trust-strip">
+                <div class="trust-metric">
+                  <span class="trust-num">50+</span>
+                  <span class="trust-label">Projects Delivered</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-metric">
+                  <span class="trust-num">4.9★</span>
+                  <span class="trust-label">Client Rating</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-metric">
+                  <span class="trust-num">2x</span>
+                  <span class="trust-label">Faster Delivery</span>
+                </div>
               </div>
             </div>
 
-            <div class="hero-terminal reveal-scale" style="--delay: 0.12s">
-              <div class="terminal-window">
-                <div class="terminal-bar">
-                  <span class="dot dot-red"></span>
-                  <span class="dot dot-yellow"></span>
-                  <span class="dot dot-green"></span>
-                  <span class="terminal-file">launch-board.html</span>
-                </div>
-                <div class="terminal-body">
-                  <p><span class="terminal-muted">$</span> init product-suite --brand="dabral-ventures"</p>
-                  <p><span class="terminal-muted">$</span> load services</p>
-                  <p class="terminal-highlight">> Brand websites, app products, AI tools, IT consulting</p>
-                  <p><span class="terminal-muted">$</span> status</p>
-                  <p class="terminal-success">> Ready to build for growth-stage teams</p>
-                  <div class="terminal-divider"></div>
-                  <div class="terminal-stack">
-                    <div class="stack-chip">Web Development</div>
-                    <div class="stack-chip">App Development</div>
-                    <div class="stack-chip">AI Tools</div>
-                    <div class="stack-chip">IT Consultancy</div>
-                  </div>
-                  <div class="terminal-panel">
-                    <div>
-                      <span class="panel-label">Delivery model</span>
-                      <strong>Strategy to support</strong>
-                    </div>
-                    <div>
-                      <span class="panel-label">Visual direction</span>
-                      <strong>Dark blue / glass / code UI</strong>
-                    </div>
-                  </div>
-                </div>
+            <div class="hero-visual-new reveal-scale" style="--delay: 0.2s">
+              <div class="visual-wrapper">
+                <img src="1774992741584.png" alt="Web development and design illustration" class="hero-illustration" />
               </div>
             </div>
           </div>
         </section>
+
+        <!-- Divider Between Hero & About -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
 
         <!-- About Section -->
         <section class="about section" id="about">
@@ -208,15 +208,12 @@
                         </p>
                         <div class="about-highlights">
                             <div class="highlight-item">
-                                <span class="highlight-icon">🚀</span>
                                 <span class="highlight-text">Fast Delivery</span>
                             </div>
                             <div class="highlight-item">
-                                <span class="highlight-icon">💡</span>
                                 <span class="highlight-text">Innovative Solutions</span>
                             </div>
                             <div class="highlight-item">
-                                <span class="highlight-icon">🤝</span>
                                 <span class="highlight-text">Client-First Approach</span>
                             </div>
                         </div>
@@ -230,6 +227,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Divider Between About & Services -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
 
         <!-- Services Section -->
         <section class="services section" id="services">
@@ -384,6 +386,11 @@
             </div>
         </section>
 
+        <!-- Divider Between Services & Why Us -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
+
         <!-- Why Us Section (Ethics) -->
         <section class="why-us section" id="why-us">
             <div class="container">
@@ -479,6 +486,11 @@
             </div>
         </section>
 
+        <!-- Divider Between Why Us & Portfolio -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
+
         <!-- Portfolio Section -->
         <section class="portfolio section" id="portfolio">
             <div class="container">
@@ -509,7 +521,14 @@
                         <article class="portfolio-item portfolio-cta" data-category="cta">
                             <a href="#contact" class="portfolio-link cta-link">
                                 <div class="cta-content">
-                                    <span class="cta-icon">🚀</span>
+                                    <div class="cta-icon-wrapper">
+                                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                            <path d="M2 17l10 5 10-5"></path>
+                                            <path d="M2 12l10 5 10-5"></path>
+                                        </svg>
+                                        <div class="cta-icon-ring"></div>
+                                    </div>
                                     <h3 class="cta-title">Your Project<br>Could Be Next</h3>
                                     <p class="cta-description">Let's build something amazing</p>
                                     <span class="cta-btn">Start Project</span>
@@ -747,54 +766,63 @@
             </div>
         </section>
 
+        <!-- Divider Between Portfolio & Testimonials -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
+
         <!-- Testimonials Section -->
         <section class="testimonials section" id="testimonials">
             <div class="container">
-                <div class="testimonials-header reveal-up">
-                    <div class="trust-badge">
-                        <span class="trust-stars">★★★★★</span>
-                        <span class="trust-text">Trusted by 50+ teams worldwide</span>
-                    </div>
-                    <h2 class="testimonials-title">
-                        <span class="title-black">Loved by teams</span>
-                        <span class="title-accent">around the world</span>
-                    </h2>
-                    <p class="testimonials-subtitle">
-                        Don't just take our word for it. Here's what the people who use our product every day have to say.
-                    </p>
-                </div>
+                <!-- Top Section: Header + Featured Card side by side -->
+                <!-- Container A -->
+                <section class="testimonials-top-section" id="section-a">
+                    <!-- Left: Header & Stats (Container B) -->
+                    <section class="testimonials-left-content" id="section-b">
+                        <div class="testimonials-header reveal-up">
+                            <div class="trust-badge">
+                                <span class="trust-stars">★★★★★</span>
+                                <span class="trust-text">Trusted by 50+ teams worldwide</span>
+                            </div>
+                            <h2 class="testimonials-title">
+                                <span class="title-black">Loved by teams</span>
+                                <span class="title-accent">around the world</span>
+                            </h2>
+                            <p class="testimonials-subtitle">
+                                Don't just take our word for it. Here's what the people who use our product every day have to say.
+                            </p>
+                        </div>
 
-                <!-- Stats Row -->
-                <div class="testimonials-stats reveal-up">
-                    <div class="stat-item">
-                        <span class="stat-number">4.9<span class="stat-suffix">/5</span></span>
-                        <span class="stat-label">Average Rating</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50<span class="stat-suffix">+</span></span>
-                        <span class="stat-label">Happy Clients</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">98<span class="stat-suffix">%</span></span>
-                        <span class="stat-label">Satisfaction Rate</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">10<span class="stat-suffix">+</span></span>
-                        <span class="stat-label">Industries Served</span>
-                    </div>
-                </div>
+                        <!-- Stats Row -->
+                        <div class="testimonials-stats reveal-up">
+                            <div class="stat-item">
+                                <span class="stat-number">4.9<span class="stat-suffix">/5</span></span>
+                                <span class="stat-label">Average Rating</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50<span class="stat-suffix">+</span></span>
+                                <span class="stat-label">Happy Clients</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">98<span class="stat-suffix">%</span></span>
+                                <span class="stat-label">Satisfaction Rate</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10<span class="stat-suffix">+</span></span>
+                                <span class="stat-label">Industries Served</span>
+                            </div>
+                        </div>
+                    </section>
 
-                <!-- Bento Grid Testimonials -->
-                <div class="testimonials-bento">
-                    <!-- Featured Testimonial (Large) -->
-                    <article class="testimonial-card featured reveal-up" style="--delay: 0.1s">
+                    <!-- Right: Featured Testimonial (Container C) -->
+                    <section class="testimonial-card featured reveal-up" id="section-c" style="--delay: 0.1s">
                         <div class="featured-badge">Featured</div>
                         <div class="quote-icon">❝</div>
                         <div class="testimonial-stars">
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <blockquote class="testimonial-quote">
-                            "Dabral Ventures transformed the way our team collaborates. We went from scattered workflows to a single source of truth — and our velocity doubled within weeks. Their attention to detail is remarkable, and they truly understand what businesses need to scale. I can't imagine going back."
+                            "Dabral Ventures transformed our team collaboration. We went from scattered workflows to a single source of truth — velocity doubled within weeks. Their attention to detail is remarkable, and they truly understand what businesses need to scale."
                         </blockquote>
                         <div class="testimonial-author">
                             <div class="author-avatar">
@@ -805,9 +833,11 @@
                                 <span>VP of Product, TechStart Solutions</span>
                             </div>
                         </div>
-                    </article>
+                    </section>
+                </section>
 
-                    <!-- Testimonial 2 -->
+                <!-- Bottom: 4 Cards in one row -->
+                <div class="testimonials-bento">
                     <article class="testimonial-card reveal-up" style="--delay: 0.2s">
                         <div class="quote-icon">❝</div>
                         <div class="testimonial-stars">
@@ -827,8 +857,8 @@
                         </div>
                     </article>
 
-                    <!-- Testimonial 3 -->
-                    <article class="testimonial-card reveal-up" style="--delay: 0.3s">
+                    <!-- Testimonial 2 -->
+                    <article class="testimonial-card reveal-up" style="--delay: 0.25s">
                         <div class="quote-icon">❝</div>
                         <div class="testimonial-stars">
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -847,8 +877,8 @@
                         </div>
                     </article>
 
-                    <!-- Testimonial 4 -->
-                    <article class="testimonial-card reveal-up" style="--delay: 0.4s">
+                    <!-- Testimonial 3 -->
+                    <article class="testimonial-card reveal-up" style="--delay: 0.35s">
                         <div class="quote-icon">❝</div>
                         <div class="testimonial-stars">
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -867,8 +897,8 @@
                         </div>
                     </article>
 
-                    <!-- Testimonial 5 -->
-                    <article class="testimonial-card reveal-up" style="--delay: 0.5s">
+                    <!-- Testimonial 4 -->
+                    <article class="testimonial-card reveal-up" style="--delay: 0.45s">
                         <div class="quote-icon">❝</div>
                         <div class="testimonial-stars">
                             <span>★</span><span>★</span><span>★</span><span>★</span><span class="star-half">★</span>
@@ -889,6 +919,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Divider Between Testimonials & Contact -->
+        <div class="section-divider-wrapper reveal-up">
+            <div class="thin-cool-line"></div>
+        </div>
 
         <!-- Contact Section -->
         <section class="contact section" id="contact">

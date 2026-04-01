@@ -3,23 +3,13 @@
    Premium Interactive Features
    ======================================== */
 
-// Disable scroll restoration on mobile (before DOM loads)
+// Scroll position restoration (handled in HTML head)
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// Reset scroll position on mobile
-if (window.innerWidth <= 768) {
-    window.scrollTo(0, 0);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
-    
-    // Force scroll to top on mobile
-    if (window.innerWidth <= 768) {
-        window.scrollTo(0, 0);
-    }
 
     // ========== CUSTOM CURSOR ==========
     const cursorDot = document.getElementById('cursor-dot');
