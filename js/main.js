@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== TYPEWRITER EFFECT ==========
     const typewriterElement = document.getElementById('typewriter');
-    const words = ['design-forward', 'innovative', 'scalable', 'modern', 'premium'];
+    const words = ['Digital Products', 'Stunning Websites', 'Powerful Apps', 'AI Solutions', 'Your Next Big Idea'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    const typingSpeed = 80;
-    const deletingSpeed = 40;
-    const pauseBeforeDelete = 1800;
+    const typingSpeed = 60;
+    const deletingSpeed = 30;
+    const pauseBeforeDelete = 2000;
 
     function typeWriter() {
         if (!typewriterElement) return;
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                // Instant start - no pause before typing
-                typeWriter();
+                // Small pause before typing next word
+                setTimeout(typeWriter, 200);
             } else {
                 setTimeout(typeWriter, deletingSpeed);
             }
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Start typewriter after a small delay
-    setTimeout(typeWriter, 1000);
+    setTimeout(typeWriter, 800);
 
     // ========== PRELOADER ==========
     const preloader = document.getElementById('preloader');

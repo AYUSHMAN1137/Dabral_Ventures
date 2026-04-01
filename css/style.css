@@ -416,6 +416,32 @@ img {
     display: inline;
 }
 
+/* Typewriter Animation Styles */
+.typewriter-wrapper {
+    display: inline-flex;
+    align-items: baseline;
+    min-height: 1.2em;
+}
+
+.typewriter-text {
+    display: inline;
+    transition: opacity 0.1s ease;
+}
+
+.typewriter-cursor {
+    color: #00d4ff;
+    font-weight: 300;
+    opacity: 0.5;
+    animation: cursorBlink 1s ease-in-out infinite;
+    margin-left: 1px;
+}
+
+@keyframes cursorBlink {
+    0%, 40% { opacity: 0.5; }
+    50%, 90% { opacity: 0; }
+    100% { opacity: 0.5; }
+}
+
 .hero-desc-new {
     font-family: "Inter", sans-serif;
     font-size: 1.08rem;

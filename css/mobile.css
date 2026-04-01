@@ -191,6 +191,11 @@
     line-height: 1.15;
   }
 
+  /* Typewriter mobile adjustments */
+  .typewriter-wrapper {
+    min-height: 1.3em;
+  }
+
   .section-title {
     font-size: clamp(1.5rem, 7vw, 2rem);
   }
