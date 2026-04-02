@@ -13,10 +13,10 @@
     --muted: #4b5563;
     --muted-strong: #374151;
     --line: rgba(0, 0, 0, 0.08);
-    --line-strong: rgba(0, 212, 255, 0.3);
-    --accent: #00d4ff;
-    --accent-strong: #00b8d9;
-    --accent-soft: rgba(0, 212, 255, 0.15);
+    --line-strong: hsla(217, 91%, 60%, 0.3);
+    --accent: hsl(217, 91%, 60%);
+    --accent-strong: hsl(217, 91%, 50%);
+    --accent-soft: hsla(217, 91%, 60%, 0.15);
     --success: #10b981;
     --danger: #f43f5e;
     --radius: 20px;
@@ -89,7 +89,7 @@ img {
     right: -80px;
     width: 300px;
     height: 300px;
-    background: rgba(0, 212, 255, 0.25);
+    background: hsla(217, 91%, 60%, 0.25);
 }
 
 .ambient-two {
@@ -105,7 +105,7 @@ img {
     right: 18%;
     width: 200px;
     height: 200px;
-    background: rgba(0, 212, 255, 0.12);
+    background: hsla(217, 91%, 60%, 0.12);
 }
 
 .container {
@@ -162,7 +162,7 @@ img {
     -webkit-backdrop-filter: blur(24px);
     box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.06),
-        0 0 20px rgba(0, 212, 255, 0.05),
+        0 0 20px hsla(217, 91%, 60%, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
@@ -197,13 +197,13 @@ img {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
-    color: #0a0a0a;
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+    color: #ffffff;
     font-family: "Syne", "Space Grotesk", sans-serif;
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.35);
+    box-shadow: 0 4px 15px hsla(217, 91%, 60%, 0.35);
     transition: all 0.3s ease;
 }
 
@@ -215,7 +215,7 @@ img {
 
 .brand:hover .brand-mark {
     transform: scale(1.05);
-    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
+    box-shadow: 0 6px 25px hsla(217, 91%, 60%, 0.5);
 }
 
 .brand-text {
@@ -256,7 +256,7 @@ img {
     transform: translateX(-50%) scaleX(0);
     width: 20px;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #00b8d9);
+    background: linear-gradient(90deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
     border-radius: 2px;
     transition: transform 0.25s ease;
 }
@@ -272,8 +272,8 @@ img {
 }
 
 .nav-link.active {
-    color: #00d4ff;
-    background: rgba(0, 212, 255, 0.08);
+    color: hsl(217, 91%, 60%);
+    background: hsla(217, 91%, 60%, 0.08);
 }
 
 .nav-cta {
@@ -283,19 +283,19 @@ img {
     gap: 8px;
     padding: 10px 20px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
-    color: #0a0a0a;
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+    color: #ffffff;
     font-size: 0.88rem;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 20px hsla(217, 91%, 60%, 0.3);
     transition: all 0.3s ease;
 }
 
 .nav-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(0, 212, 255, 0.45);
-    background: linear-gradient(135deg, #00b8d9, #0891b2);
+    box-shadow: 0 6px 30px hsla(217, 91%, 60%, 0.45);
+    background: linear-gradient(135deg, hsl(217, 91%, 50%), hsl(217, 91%, 40%));
 }
 
 .button {
@@ -373,13 +373,13 @@ img {
     align-items: center;
     gap: 10px;
     padding: 8px 20px 8px 14px;
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: hsla(217, 91%, 60%, 0.08);
+    border: 1px solid hsla(217, 91%, 60%, 0.2);
     border-radius: 99px;
     font-family: "Inter", sans-serif;
     font-size: 0.82rem;
     font-weight: 600;
-    color: #0891b2;
+    color: hsl(217, 91%, 40%);
     letter-spacing: 0.03em;
     margin-bottom: 28px;
 }
@@ -388,14 +388,14 @@ img {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #00d4ff;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+    background: hsl(217, 91%, 60%);
+    box-shadow: 0 0 10px hsla(217, 91%, 60%, 0.7);
     animation: dotPulse 2s ease-in-out infinite;
 }
 
 @keyframes dotPulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0, 212, 255, 0.7); }
-    50% { opacity: 0.5; box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px hsla(217, 91%, 60%, 0.7); }
+    50% { opacity: 0.5; box-shadow: 0 0 20px hsla(217, 91%, 60%, 0.4); }
 }
 
 /* TYPOGRAPHY */
@@ -411,7 +411,7 @@ img {
 }
 
 .hero-title-new .highlight-cyan {
-    color: #00d4ff;
+    color: hsl(217, 91%, 60%);
     position: relative;
     display: inline;
 }
@@ -429,17 +429,15 @@ img {
 }
 
 .typewriter-cursor {
-    color: #00d4ff;
+    color: hsl(217, 91%, 60%);
     font-weight: 300;
-    opacity: 0.5;
-    animation: cursorBlink 1s ease-in-out infinite;
+    animation: cursorBlink 0.53s step-end infinite;
     margin-left: 1px;
 }
 
 @keyframes cursorBlink {
-    0%, 40% { opacity: 0.5; }
-    50%, 90% { opacity: 0; }
-    100% { opacity: 0.5; }
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 .hero-desc-new {
@@ -466,20 +464,20 @@ img {
     align-items: center;
     justify-content: center;
     padding: 15px 30px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
-    color: #0a0a0a;
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+    color: #ffffff;
     font-family: "Inter", sans-serif;
     font-size: 0.92rem;
     font-weight: 600;
     border-radius: 12px;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 25px hsla(217, 91%, 60%, 0.3);
 }
 
 .btn-cyan:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(0, 212, 255, 0.45);
+    box-shadow: 0 12px 35px hsla(217, 91%, 60%, 0.45);
 }
 
 .btn-outline {
@@ -499,8 +497,8 @@ img {
 }
 
 .btn-outline:hover {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.05);
+    border-color: hsl(217, 91%, 60%);
+    background: hsla(217, 91%, 60%, 0.05);
     transform: translateY(-2px);
 }
 
@@ -635,7 +633,7 @@ img {
 
 .stat-num .plus {
     font-size: 1.2rem;
-    color: #00d4ff;
+    color: hsl(217, 91%, 60%);
     margin-left: 2px;
 }
 
@@ -649,8 +647,8 @@ img {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #00d4ff;
-    box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+    background: hsl(217, 91%, 60%);
+    box-shadow: 0 0 8px hsla(217, 91%, 60%, 0.6);
 }
 
 /* HERO RESPONSIVE */
@@ -720,9 +718,9 @@ img {
     align-items: center;
     gap: 8px;
     padding: 10px 18px;
-    border: 1px solid rgba(0, 212, 255, 0.4);
+    border: 1px solid hsla(217, 91%, 60%, 0.4);
     border-radius: 999px;
-    background: rgba(0, 212, 255, 0.1);
+    background: hsla(217, 91%, 60%, 0.1);
     color: #008eb3;
     font-size: 0.75rem;
     font-weight: 600;
@@ -762,7 +760,7 @@ img {
 }
 
 .contact-item:hover {
-    border-color: rgba(0, 212, 255, 0.4);
+    border-color: hsla(217, 91%, 60%, 0.4);
     background: #FFF8E1;
 }
 
@@ -826,8 +824,8 @@ img {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+    border-color: hsl(217, 91%, 60%);
+    box-shadow: 0 0 0 3px hsla(217, 91%, 60%, 0.15);
     background: #FFFEF8;
 }
 
@@ -854,18 +852,18 @@ img {
     padding: 16px 24px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
-    color: #0a0a0a;
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 30px hsla(217, 91%, 60%, 0.3);
     transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.45);
+    box-shadow: 0 12px 40px hsla(217, 91%, 60%, 0.45);
 }
 
 .submit-btn svg {
@@ -906,8 +904,8 @@ img {
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
-    color: #0a0a0a;
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+    color: #ffffff;
     font-family: "Syne", sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
@@ -1093,15 +1091,15 @@ img {
     --bg-tertiary: #FFF5D6;
     --bg-card: rgba(255, 253, 245, 0.95);
 
-    /* Accent Colors - Cyan/Teal */
-    --accent-primary: #00d4ff;
-    --accent-secondary: #00b8d9;
-    --accent-tertiary: #0891b2;
-    --accent-gradient: linear-gradient(135deg, #00d4ff 0%, #00b8d9 50%, #0891b2 100%);
-    --accent-glow: rgba(0, 212, 255, 0.2);
+    /* Accent Colors - Blue */
+    --accent-primary: hsl(217, 91%, 60%);
+    --accent-secondary: hsl(217, 91%, 50%);
+    --accent-tertiary: hsl(217, 91%, 40%);
+    --accent-gradient: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 50%) 50%, hsl(217, 91%, 40%) 100%);
+    --accent-glow: hsla(217, 91%, 60%, 0.2);
 
     /* Highlight Colors for variety */
-    --highlight-cyan: #00d4ff;
+    --highlight-cyan: hsl(217, 91%, 60%);
     --highlight-emerald: #10b981;
     --highlight-amber: #f59e0b;
     --highlight-rose: #f43f5e;
@@ -1110,11 +1108,11 @@ img {
     --text-primary: #0f1729;
     --text-secondary: #4b5563;
     --text-muted: #6b7280;
-    --text-accent: #00d4ff;
+    --text-accent: hsl(217, 91%, 60%);
 
     /* Border & Effects - Light theme */
     --border-color: rgba(0, 0, 0, 0.08);
-    --border-hover: rgba(0, 212, 255, 0.4);
+    --border-hover: hsla(217, 91%, 60%, 0.4);
     --glass-bg: rgba(255, 253, 245, 0.6);
     --glass-border: rgba(0, 0, 0, 0.08);
 
@@ -1158,12 +1156,12 @@ img {
     --text-primary: #0f1729;
     --text-secondary: #4b5563;
     --text-muted: #6b7280;
-    --text-accent: #0891b2;
+    --text-accent: hsl(217, 91%, 40%);
 
     --border-color: rgba(0, 0, 0, 0.08);
     --glass-bg: rgba(255, 253, 245, 0.9);
     --glass-border: rgba(0, 0, 0, 0.08);
-    --accent-glow: rgba(0, 212, 255, 0.2);
+    --accent-glow: hsla(217, 91%, 60%, 0.2);
 }
 
 /* ========== RESET & BASE ========== */
@@ -1535,7 +1533,7 @@ ol {
 
 /* All cards use same cyan accent for B&W theme */
 .service-card {
-    --card-accent: #00d4ff;
+    --card-accent: hsl(217, 91%, 60%);
 }
 
 .service-card:nth-child(1) {
@@ -1557,7 +1555,7 @@ ol {
 .service-card:hover {
     transform: translateY(-8px);
     border-color: var(--card-accent);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 40px rgba(0, 212, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 40px hsla(217, 91%, 60%, 0.12);
 }
 
 .card-glow {
@@ -1710,7 +1708,7 @@ ol {
 .why-card:hover {
     transform: translateY(-8px);
     border-color: var(--accent-primary);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(0, 212, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px hsla(217, 91%, 60%, 0.12);
 }
 
 .why-icon {
@@ -1730,9 +1728,9 @@ ol {
 
 .why-card:hover .why-icon {
     transform: scale(1.1);
-    background: rgba(0, 212, 255, 0.1);
+    background: hsla(217, 91%, 60%, 0.1);
     border-color: var(--accent-primary);
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 40px hsla(217, 91%, 60%, 0.2);
 }
 
 .icon-glow {
@@ -1800,7 +1798,7 @@ ol {
     z-index: 99999;
     transform: translate(-50%, -50%);
     opacity: 0;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 20px hsla(217, 91%, 60%, 0.6);
     transition: transform 0.15s ease, opacity 0.3s ease, width 0.15s ease, height 0.15s ease;
 }
 
@@ -1812,7 +1810,7 @@ body.cursor-active .cursor-dot {
     width: 20px;
     height: 20px;
     background: var(--accent-strong);
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+    box-shadow: 0 0 30px hsla(217, 91%, 60%, 0.8);
 }
 
 .cursor-dot.cursor-click {
@@ -1931,7 +1929,7 @@ body.cursor-active .cursor-dot {
 
 .testimonials-title .title-accent {
     display: block;
-    color: #00b8d9;
+    color: hsl(217, 91%, 50%);
     font-style: italic;
 }
 
@@ -1996,12 +1994,12 @@ body.cursor-active .cursor-dot {
     transform: translateY(-10px) scale(1.02);
     box-shadow:
         0 25px 50px rgba(0, 0, 0, 0.12),
-        0 0 0 1px rgba(0, 212, 255, 0.2);
+        0 0 0 1px hsla(217, 91%, 60%, 0.2);
 }
 
 .testimonial-card:hover .quote-icon {
     transform: scale(1.1);
-    color: #00d4ff;
+    color: hsl(217, 91%, 60%);
 }
 
 .testimonial-card:hover .testimonial-stars span {
@@ -2010,7 +2008,7 @@ body.cursor-active .cursor-dot {
 
 .testimonial-card:hover .author-avatar {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 25px hsla(217, 91%, 60%, 0.3);
 }
 
 @keyframes starPulse {
@@ -2041,12 +2039,12 @@ body.cursor-active .cursor-dot {
     transform: translateY(-10px) scale(1.02);
     box-shadow:
         0 30px 60px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(0, 212, 255, 0.3),
-        0 0 40px rgba(0, 212, 255, 0.1);
+        0 0 0 1px hsla(217, 91%, 60%, 0.3),
+        0 0 40px hsla(217, 91%, 60%, 0.1);
 }
 
 .testimonial-card.featured .quote-icon {
-    color: #00d4ff;
+    color: hsl(217, 91%, 60%);
     font-size: 1.8rem;
     margin-bottom: 8px;
 }
@@ -2084,7 +2082,7 @@ body.cursor-active .cursor-dot {
     position: absolute;
     top: 16px;
     right: 20px;
-    background: linear-gradient(135deg, #00d4ff, #00b8d9);
+    background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
     color: #fff;
     font-size: 0.65rem;
     font-weight: 600;
@@ -2092,7 +2090,7 @@ body.cursor-active .cursor-dot {
     border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 15px hsla(217, 91%, 60%, 0.3);
 }
 
 /* Quote Icon */
@@ -2262,9 +2260,9 @@ body.cursor-active .cursor-dot {
     height: 1.5px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        rgba(0, 212, 255, 0.1) 20%, 
+        hsla(217, 91%, 60%, 0.1) 20%, 
         var(--accent-strong) 50%, 
-        rgba(0, 212, 255, 0.1) 80%, 
+        hsla(217, 91%, 60%, 0.1) 80%, 
         transparent 100%
     );
     position: relative;
@@ -2509,7 +2507,7 @@ body.cursor-active .cursor-dot {
 .portfolio-link:hover {
     border-color: var(--accent-primary);
     transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px rgba(0, 212, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 0 30px hsla(217, 91%, 60%, 0.12);
 }
 
 .portfolio-image {
@@ -2650,19 +2648,19 @@ body.cursor-active .cursor-dot {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: color-mix(in srgb, #00d4ff 11%, #ffffff);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: color-mix(in srgb, hsl(217, 91%, 60%) 11%, #ffffff);
+    border: 1px solid hsla(217, 91%, 60%, 0.2);
     border-radius: 14px;
     margin: 0 auto 20px;
-    color: #0891b2;
+    color: hsl(217, 91%, 40%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .portfolio-cta:hover .cta-icon-wrapper {
-    background: color-mix(in srgb, #00d4ff 18%, #ffffff);
-    border-color: #00d4ff;
+    background: color-mix(in srgb, hsl(217, 91%, 60%) 18%, #ffffff);
+    border-color: hsl(217, 91%, 60%);
     transform: scale(1.1);
-    box-shadow: 0 12px 28px color-mix(in srgb, #00d4ff 28%, transparent);
+    box-shadow: 0 12px 28px color-mix(in srgb, hsl(217, 91%, 60%) 28%, transparent);
 }
 
 .cta-icon-wrapper svg {
@@ -2671,13 +2669,13 @@ body.cursor-active .cursor-dot {
 
 .portfolio-cta:hover .cta-icon-wrapper svg {
     transform: scale(1.08) rotate(-6deg);
-    filter: drop-shadow(0 4px 10px color-mix(in srgb, #00d4ff 32%, transparent));
+    filter: drop-shadow(0 4px 10px color-mix(in srgb, hsl(217, 91%, 60%) 32%, transparent));
 }
 
 .cta-icon-ring {
     position: absolute;
     inset: -5px;
-    border: 1px solid #00d4ff;
+    border: 1px solid hsl(217, 91%, 60%);
     border-radius: 14px;
     opacity: 0;
     transform: scale(0.8);
@@ -2697,9 +2695,9 @@ body.cursor-active .cursor-dot {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(0, 212, 255, 0.1);
-    border: 2px solid rgba(0, 212, 255, 0.3);
-    color: #0891b2;
+    background: hsla(217, 91%, 60%, 0.1);
+    border: 2px solid hsla(217, 91%, 60%, 0.3);
+    color: hsl(217, 91%, 40%);
 }
 
 .cta-icon-svg svg {
@@ -3128,7 +3126,7 @@ body.cursor-active .cursor-dot {
     right: -100px;
     width: 300px;
     height: 300px;
-    background: rgba(0, 212, 255, 0.08);
+    background: hsla(217, 91%, 60%, 0.08);
     border-radius: 50%;
     filter: blur(80px);
     pointer-events: none;
@@ -3215,12 +3213,12 @@ body.cursor-active .cursor-dot {
 }
 
 .carousel-dots .dot-accent.active {
-    background: linear-gradient(180deg, #0f5757 0%, #0891b2 100%);
+    background: linear-gradient(180deg, #0f5757 0%, hsl(217, 91%, 40%) 100%);
     transform: scale(1.2);
 }
 
 .carousel-dots .dot-accent:hover {
-    background: #0891b2;
+    background: hsl(217, 91%, 40%);
 }
 
 .about-dots {
@@ -3241,11 +3239,11 @@ body.cursor-active .cursor-dot {
 }
 
 .dot-accent:nth-child(2) {
-    background: #00d4ff;
+    background: hsl(217, 91%, 60%);
 }
 
 .dot-accent:nth-child(3) {
-    background: #0891b2;
+    background: hsl(217, 91%, 40%);
 }
 
 .about-content {
@@ -3258,8 +3256,8 @@ body.cursor-active .cursor-dot {
     gap: 8px;
     padding: 8px 16px;
     border-radius: 50px;
-    background: rgba(0, 212, 255, 0.1);
-    color: #0891b2;
+    background: hsla(217, 91%, 60%, 0.1);
+    color: hsl(217, 91%, 40%);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -3313,7 +3311,7 @@ body.cursor-active .cursor-dot {
 .highlight-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 212, 255, 0.3);
+    border-color: hsla(217, 91%, 60%, 0.3);
 }
 
 .highlight-icon {
@@ -3322,8 +3320,8 @@ body.cursor-active .cursor-dot {
     justify-content: center;
     padding: 6px 10px;
     border-radius: 10px;
-    background: rgba(0, 212, 255, 0.12);
-    border: 1px solid rgba(0, 212, 255, 0.25);
+    background: hsla(217, 91%, 60%, 0.12);
+    border: 1px solid hsla(217, 91%, 60%, 0.25);
     color: #0f5757;
     font-size: 0.75rem;
     font-weight: 700;

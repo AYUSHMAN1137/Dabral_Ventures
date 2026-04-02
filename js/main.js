@@ -788,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const particleCount = 35;
         // Light theme friendly colors for particles
-        const colors = ['#00d4ff', '#0ea5e9', '#3b82f6', '#1e293b', '#94a3b8'];
+        const colors = ['hsl(217, 91%, 60%)', 'hsl(217, 91%, 50%)', 'hsl(217, 91%, 40%)', '#1e293b', '#94a3b8'];
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
