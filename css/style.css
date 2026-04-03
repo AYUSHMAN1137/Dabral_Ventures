@@ -2916,7 +2916,7 @@ body.cursor-active .cursor-dot {
     }
 }
 
-/* ========== SOCIAL FAB (Floating Action Button) ========== */
+/* ========== SOCIAL FAB - GROUPED HOVER ========== */
 .social-fab {
     position: fixed;
     bottom: 40px;
@@ -2924,6 +2924,31 @@ body.cursor-active .cursor-dot {
     z-index: 900;
     touch-action: none;
     user-select: none;
+    /* Define dimensions to create a cohesive hover zone */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Invisible hover bridge that connects the main button and options,
+   preventing the hover state from breaking when moving between them */
+.social-fab::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* On desktop, make the bridge interactive so
+   cursor can travel between button and options */
+@media (hover: hover) and (pointer: fine) {
+    .social-fab::before {
+        pointer-events: auto;
+    }
 }
 
 .fab-main {
@@ -2938,9 +2963,11 @@ body.cursor-active .cursor-dot {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.4);
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: relative;
     z-index: 10;
+    flex-shrink: 0;
+    order: 2; /* Push button to the bottom of the flex container */
 }
 
 .fab-main:hover {
@@ -2951,7 +2978,7 @@ body.cursor-active .cursor-dot {
 .fab-icon-open,
 .fab-icon-close {
     position: absolute;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .fab-icon-close {
@@ -2959,6 +2986,7 @@ body.cursor-active .cursor-dot {
     transform: rotate(-90deg) scale(0);
 }
 
+/* ---- Active state (mobile/touch) ---- */
 .social-fab.active .fab-icon-open {
     opacity: 0;
     transform: rotate(90deg) scale(0);
@@ -2971,17 +2999,19 @@ body.cursor-active .cursor-dot {
 
 .social-fab.active .fab-main {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
 }
 
+/* ---- FAB Options Container ---- */
 .fab-options {
-    position: absolute;
-    bottom: 70px;
-    right: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
     pointer-events: none;
+    order: 1; /* Options sit above the button */
+    margin-bottom: 14px;
+    padding-bottom: 2px;
 }
 
 .fab-option {
@@ -2995,12 +3025,13 @@ body.cursor-active .cursor-dot {
     text-decoration: none;
     opacity: 0;
     transform: scale(0) translateY(20px);
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     position: relative;
     background: #0f172a;
 }
 
+/* Tooltip */
 .fab-option::before {
     content: attr(data-tooltip);
     position: absolute;
@@ -3024,6 +3055,7 @@ body.cursor-active .cursor-dot {
     transform: translateX(0);
 }
 
+/* Brand colors */
 .fab-whatsapp {
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
 }
@@ -3040,11 +3072,13 @@ body.cursor-active .cursor-dot {
     background: linear-gradient(135deg, #EA4335 0%, #C5221F 100%);
 }
 
+/* Individual option hover */
 .fab-option:hover {
     transform: scale(1.15) translateY(0) !important;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* ---- Active (touch/mobile) state: expand options ---- */
 .social-fab.active .fab-options {
     pointer-events: auto;
 }
@@ -3070,16 +3104,21 @@ body.cursor-active .cursor-dot {
     transition-delay: 0.2s;
 }
 
+/* ---- Desktop hover: group hover opens everything ---- */
 @media (hover: hover) and (pointer: fine) {
+    /* When hovering ANYWHERE on the .social-fab wrapper,
+       the options become interactable */
     .social-fab:hover .fab-options {
         pointer-events: auto;
     }
 
+    /* All options expand together as a group */
     .social-fab:hover .fab-option {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
 
+    /* Staggered animation on open */
     .social-fab:hover .fab-option:nth-child(1) {
         transition-delay: 0.05s;
     }
@@ -3096,6 +3135,21 @@ body.cursor-active .cursor-dot {
         transition-delay: 0.2s;
     }
 
+    /* When NOT hovered, stagger the close in reverse order */
+    .social-fab:not(:hover) .fab-option:nth-child(4) {
+        transition-delay: 0s;
+    }
+    .social-fab:not(:hover) .fab-option:nth-child(3) {
+        transition-delay: 0.04s;
+    }
+    .social-fab:not(:hover) .fab-option:nth-child(2) {
+        transition-delay: 0.08s;
+    }
+    .social-fab:not(:hover) .fab-option:nth-child(1) {
+        transition-delay: 0.12s;
+    }
+
+    /* Cross icon appears on group hover */
     .social-fab:hover .fab-icon-open {
         opacity: 0;
         transform: rotate(90deg) scale(0);
@@ -3106,10 +3160,48 @@ body.cursor-active .cursor-dot {
         transform: rotate(0) scale(1);
     }
 
+    /* Button turns red on group hover */
     .social-fab:hover .fab-main {
         background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
     }
+}
+
+/* ---- FAB Pulse Ring ---- */
+.fab-pulse {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid rgba(15, 23, 42, 0.2);
+    animation: fabPulseRing 2.5s ease-out infinite;
+    pointer-events: none;
+    order: 3;
+    z-index: 5;
+}
+
+@keyframes fabPulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    70% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Hide pulse when FAB is open */
+.social-fab.active .fab-pulse,
+.social-fab:hover .fab-pulse {
+    animation: none;
+    opacity: 0;
 }
 
 /* ========== ABOUT SECTION ========== */
