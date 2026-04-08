@@ -3,23 +3,110 @@
    Premium Interactive Features
    ======================================== */
 
-// Disable scroll restoration on mobile (before DOM loads)
+// Scroll position restoration (handled in HTML head)
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// Reset scroll position on mobile
-if (window.innerWidth <= 768) {
-    window.scrollTo(0, 0);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
+
+    // ========== CUSTOM CURSOR ==========
+    const cursorDot = document.getElementById('cursor-dot');
     
-    // Force scroll to top on mobile
-    if (window.innerWidth <= 768) {
-        window.scrollTo(0, 0);
+    // Check if not touch device
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    
+    if (!isTouchDevice && cursorDot) {
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        document.body.classList.add('cursor-active');
+        
+        // All interactive elements
+        const interactiveElements = 'a, button, input, textarea, select, [role="button"], .nav-link, .nav-cta, .portfolio-link, .testimonial-card, .filter-btn';
+        
+        // Instant cursor movement
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+        
+        // Hover effect on interactive elements
+        document.querySelectorAll(interactiveElements).forEach(el => {
+            el.style.cursor = 'none';
+            
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+            });
+        });
+        
+        // Click effect
+        document.addEventListener('mousedown', () => {
+            cursorDot.classList.add('cursor-click');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            cursorDot.classList.remove('cursor-click');
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursorDot.style.opacity = '1';
+        });
     }
+
+    // ========== TYPEWRITER EFFECT ==========
+    const typewriterElement = document.getElementById('typewriter');
+    const words = ['Digital Products', 'Stunning Websites', 'Powerful Apps', 'AI Solutions', 'Your Next Big Idea'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 60;
+    const deletingSpeed = 30;
+    const pauseBeforeDelete = 2000;
+
+    function typeWriter() {
+        if (!typewriterElement) return;
+        
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            // Deleting characters
+            typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            
+            if (charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                // Small pause before typing next word
+                setTimeout(typeWriter, 200);
+            } else {
+                setTimeout(typeWriter, deletingSpeed);
+            }
+        } else {
+            // Typing characters
+            typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            
+            if (charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(typeWriter, pauseBeforeDelete);
+            } else {
+                setTimeout(typeWriter, typingSpeed);
+            }
+        }
+    }
+
+    // Start typewriter after a small delay
+    setTimeout(typeWriter, 800);
 
     // ========== PRELOADER ==========
     const preloader = document.getElementById('preloader');
@@ -43,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== NAVBAR SCROLL BEHAVIOR ==========
     const navbar = document.getElementById('navbar');
+    const siteHeader = document.querySelector('.site-header');
     const scrollProgress = document.getElementById('scroll-progress');
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -54,11 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollY = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         
-        // Add scrolled class
-        if (scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        // Add scrolled class for both old and new navbar
+        if (navbar) {
+            navbar.classList.toggle('scrolled', scrollY > 50);
+        }
+        
+        // For new site-header
+        if (siteHeader) {
+            siteHeader.classList.toggle('scrolled', scrollY > 30);
         }
 
         // Update scroll progress
@@ -67,19 +158,23 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollProgress.style.width = `${progress}%`;
         }
 
-        // Update active nav link
+        // Update active nav link based on scroll position
+        let currentSection = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - 150;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
 
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+                currentSection = sectionId;
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === `#${currentSection}`) {
+                link.classList.add('active');
             }
         });
 
@@ -93,33 +188,46 @@ document.addEventListener('DOMContentLoaded', () => {
             ticking = true;
         }
     });
+    
+    // Initialize navbar state
+    updateNavbar();
 
     // ========== MOBILE MENU ==========
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 
+    const closeMenu = () => {
+        if (!menuToggle || !navMenu) return;
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    };
+
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
+            const isOpen = menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('menu-open', isOpen);
         });
 
         // Close menu on link click
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // Close menu on outside click
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                closeMenu();
+            }
+        });
+        
+        // Close menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 820) {
+                closeMenu();
             }
         });
     }
@@ -127,14 +235,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
-                const offsetTop = target.offsetTop - 80;
+                // Account for fixed navbar height + some padding
+                const navbarHeight = 100;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                
                 window.scrollTo({
-                    top: offsetTop,
+                    top: targetPosition,
                     behavior: 'smooth'
                 });
+                
+                // Close mobile menu if open
+                if (menuToggle && navMenu) {
+                    closeMenu();
+                }
             }
         });
     });
@@ -224,10 +343,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ========== PORTFOLIO ITEM HOVER ==========
+    const portfolioSliderWrapper = document.querySelector('.portfolio-slider-wrapper');
     portfolioItems.forEach(item => {
         const image = item.querySelector('.portfolio-image img');
-        
+
         item.addEventListener('mouseenter', () => {
+            if (portfolioSliderWrapper && portfolioSliderWrapper.classList.contains('is-slider-pointer-down')) {
+                return;
+            }
             if (image) {
                 image.style.transform = 'scale(1.1)';
             }
@@ -242,43 +365,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== PORTFOLIO PREVIEW IMAGE LOADER ==========
     // Supports jpg, jpeg, png formats
-    const loadPreviewImage = (imgElement, basePath) => {
-        const formats = ['jpg', 'jpeg', 'png', 'webp'];
-        let currentIndex = 0;
-        
-        const tryNextFormat = () => {
-            if (currentIndex >= formats.length) {
-                // All formats failed, keep placeholder
-                imgElement.style.display = 'none';
-                return;
-            }
-            
-            const testImg = new Image();
-            const src = `${basePath}.${formats[currentIndex]}`;
-            
-            testImg.onload = () => {
-                imgElement.src = src;
-                imgElement.style.display = '';
-            };
-            
-            testImg.onerror = () => {
-                currentIndex++;
-                tryNextFormat();
-            };
-            
-            testImg.src = src;
-        };
-        
-        tryNextFormat();
-    };
+    // Preview image loading handled inline above
 
-    // Load all preview images with format detection
+    // Load all preview images - use the exact src specified in HTML
     document.querySelectorAll('.portfolio-preview, .portfolio-preview-popup img').forEach(img => {
         const src = img.getAttribute('src');
         if (src) {
-            // Extract base path without extension
-            const basePath = src.replace(/\.(jpg|jpeg|png|webp)$/i, '');
-            loadPreviewImage(img, basePath);
+            // Just verify the image loads, no format guessing needed
+            const testImg = new Image();
+            testImg.onload = () => {
+                img.src = src;
+                img.style.display = '';
+            };
+            testImg.onerror = () => {
+                img.style.display = 'none';
+            };
+            testImg.src = src;
         }
     });
 
@@ -377,7 +479,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let startX = 0;
         let startCurrentX = 0;
         let lastMouseX = 0;
+        let lastTime = Date.now();
         let velocity = 0;
+        let momentumVelocity = 0;
+        const velocityHistory = [];
+        const maxVelocitySamples = 6;
+        const momentumFriction = 0.935;
+        const minMomentum = 0.12;
+        let capturedPointerId = null;
+        let dragCommitted = false;
+        let suppressNextClick = false;
+        let pendingLink = null;
+        const dragThresholdPx = 8;
         let animationId = null;
         let sliderWidth = 0;
         let contentWidth = 0;
@@ -403,6 +516,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             sliderWidth = contentWidth;
+
+            slider.querySelectorAll('img').forEach((img) => {
+                img.setAttribute('draggable', 'false');
+            });
+            slider.querySelectorAll('a').forEach((a) => {
+                a.setAttribute('draggable', 'false');
+            });
         };
         
         setupClones();
@@ -419,60 +539,90 @@ document.addEventListener('DOMContentLoaded', () => {
         // Animation loop
         const animate = () => {
             if (!isDragging) {
-                // Ease current speed towards target speed
                 currentSpeed += (targetSpeed - currentSpeed) * 0.02;
-                
-                // Move slider
                 currentX += direction * currentSpeed;
-                
-                // Loop seamlessly
+
+                if (Math.abs(momentumVelocity) > minMomentum) {
+                    currentX += momentumVelocity;
+                    momentumVelocity *= momentumFriction;
+                    if (Math.abs(momentumVelocity) < minMomentum) {
+                        momentumVelocity = 0;
+                    }
+                }
+
                 if (direction === -1 && currentX <= -sliderWidth) {
                     currentX += sliderWidth;
                 } else if (direction === 1 && currentX >= 0) {
                     currentX -= sliderWidth;
                 }
-                
+
                 slider.style.transform = `translateX(${currentX}px)`;
             }
-            
+
             animationId = requestAnimationFrame(animate);
         };
         
         animate();
         
-        // Get pointer position (works for both mouse and touch)
-        const getPointerX = (e) => {
-            return e.touches ? e.touches[0].clientX : e.clientX;
-        };
-        
-        // Drag start
+        const getPointerX = (e) => e.clientX;
+
         const onDragStart = (e) => {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+            e.preventDefault();
+
+            pendingLink = e.target.closest && e.target.closest('a[href]');
+
             isDragging = true;
+            dragCommitted = false;
+            suppressNextClick = false;
+            capturedPointerId = e.pointerId;
+            try {
+                wrapper.setPointerCapture(e.pointerId);
+            } catch (err) { /* ignore */ }
+
+            wrapper.classList.add('is-slider-pointer-down');
+
             startX = getPointerX(e);
             startCurrentX = currentX;
             lastMouseX = startX;
+            lastTime = performance.now();
             velocity = 0;
-            
+            velocityHistory.length = 0;
+            momentumVelocity = 0;
+
             slider.style.cursor = 'grabbing';
             wrapper.style.cursor = 'grabbing';
         };
-        
-        // Drag move
+
         const onDragMove = (e) => {
-            if (!isDragging) return;
-            
+            if (!isDragging || e.pointerId !== capturedPointerId) return;
+
             const currentPointerX = getPointerX(e);
-            const diff = currentPointerX - startX;
+            const totalDelta = Math.abs(currentPointerX - startX);
+            if (totalDelta > dragThresholdPx) {
+                if (!dragCommitted) {
+                    dragCommitted = true;
+                }
+                e.preventDefault();
+            }
+            const currentTime = performance.now();
+            const timeDelta = Math.max(currentTime - lastTime, 1);
             const mouseDelta = currentPointerX - lastMouseX;
-            
-            // Calculate velocity for momentum
-            velocity = mouseDelta;
+            const sample = mouseDelta / timeDelta;
+
+            velocityHistory.push(sample);
+            if (velocityHistory.length > maxVelocitySamples) {
+                velocityHistory.shift();
+            }
+            velocity = sample;
+
             lastMouseX = currentPointerX;
-            
-            // Update position
+            lastTime = currentTime;
+
+            const diff = currentPointerX - startX;
             currentX = startCurrentX + diff;
-            
-            // Keep within bounds with loop
+
             if (currentX <= -sliderWidth) {
                 currentX += sliderWidth;
                 startCurrentX += sliderWidth;
@@ -480,44 +630,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentX -= sliderWidth;
                 startCurrentX -= sliderWidth;
             }
-            
+
             slider.style.transform = `translateX(${currentX}px)`;
         };
-        
-        // Drag end
+
         const onDragEnd = (e) => {
             if (!isDragging) return;
+            if (e.pointerId !== capturedPointerId) return;
+
+            const didDrag = dragCommitted;
+
             isDragging = false;
-            
+            wrapper.classList.remove('is-slider-pointer-down');
+            if (didDrag) {
+                suppressNextClick = true;
+            }
+            dragCommitted = false;
+
+            const linkToActivate = !didDrag ? pendingLink : null;
+            pendingLink = null;
+
+            if (capturedPointerId != null) {
+                try {
+                    wrapper.releasePointerCapture(capturedPointerId);
+                } catch (err) { /* ignore */ }
+                capturedPointerId = null;
+            }
+
             slider.style.cursor = 'grab';
             wrapper.style.cursor = 'grab';
-            
-            // Calculate swipe speed and direction based on velocity
-            const absVelocity = Math.abs(velocity);
-            
-            if (absVelocity > 5) {
-                // Fast swipe detected - change direction based on swipe
-                if (velocity > 0) {
-                    direction = 1;
-                } else {
-                    direction = -1;
+
+            const avgVel =
+                velocityHistory.length > 0
+                    ? velocityHistory.reduce((a, b) => a + b, 0) / velocityHistory.length
+                    : velocity;
+            const absVel = Math.abs(avgVel);
+
+            if (absVel > 0.08) {
+                const frameScale = 16.67;
+                momentumVelocity = avgVel * frameScale;
+                const maxMomentum = 48;
+                momentumVelocity = Math.max(-maxMomentum, Math.min(maxMomentum, momentumVelocity));
+                if (absVel > 0.35) {
+                    direction = avgVel > 0 ? 1 : -1;
                 }
-                
-                const boostSpeed = Math.min(absVelocity * 0.5, 15);
-                currentSpeed = boostSpeed;
-                targetSpeed = baseSpeed;
+            } else {
+                momentumVelocity = 0;
+            }
+
+            velocityHistory.length = 0;
+            targetSpeed = baseSpeed;
+
+            if (linkToActivate) {
+                linkToActivate.click();
             }
         };
+
+        wrapper.addEventListener('dragstart', (ev) => {
+            ev.preventDefault();
+        }, true);
         
-        // Mouse events
-        wrapper.addEventListener('mousedown', onDragStart);
-        document.addEventListener('mousemove', onDragMove);
-        document.addEventListener('mouseup', onDragEnd);
-        
-        // Touch events
-        wrapper.addEventListener('touchstart', onDragStart, { passive: true });
-        document.addEventListener('touchmove', onDragMove, { passive: true });
-        document.addEventListener('touchend', onDragEnd);
+        wrapper.addEventListener(
+            'click',
+            (e) => {
+                if (!suppressNextClick) return;
+                suppressNextClick = false;
+                e.preventDefault();
+                e.stopPropagation();
+            },
+            true
+        );
+
+        wrapper.addEventListener('pointerdown', onDragStart, { passive: false });
+        wrapper.addEventListener('pointermove', onDragMove, { passive: false });
+        wrapper.addEventListener('pointerup', onDragEnd);
+        wrapper.addEventListener('pointercancel', onDragEnd);
+        wrapper.addEventListener('lostpointercapture', (e) => {
+            if (isDragging && e.pointerId === capturedPointerId) {
+                onDragEnd(e);
+            }
+        });
         
         // Set initial cursor
         wrapper.style.cursor = 'grab';
@@ -546,6 +738,156 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     initPortfolioSlider();
+
+    // ========== CONTACT FORM HANDLING ==========
+    const contactForm = document.querySelector('.contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = `
+                <span>Sending...</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/>
+                </svg>
+            `;
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                submitBtn.innerHTML = `
+                    <span>Message Sent!</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                `;
+                submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    }
+
+    // ========== PARTICLES SYSTEM ==========
+    const createParticles = () => {
+        const particlesContainer = document.getElementById('particles');
+        if (!particlesContainer) return;
+
+        const particleCount = 35;
+        // Light theme friendly colors for particles
+        const colors = ['hsl(217, 91%, 60%)', 'hsl(217, 91%, 50%)', 'hsl(217, 91%, 40%)', '#1e293b', '#94a3b8'];
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particle.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                opacity: ${Math.random() * 0.4 + 0.1};
+                animation: particleFloat ${Math.random() * 20 + 15}s linear infinite;
+                animation-delay: -${Math.random() * 20}s;
+                box-shadow: 0 0 ${size * 2}px ${color}40;
+            `;
+            particlesContainer.appendChild(particle);
+        }
+    };
+    createParticles();
+
+    // ========== SOCIAL FAB (Floating Action Button) ==========
+    const socialFab = document.getElementById('socialFab');
+    const fabMain = document.getElementById('fabMain');
+    
+    if (socialFab && fabMain) {
+        // Toggle FAB on click (for mobile)
+        fabMain.addEventListener('click', (e) => {
+            socialFab.classList.toggle('active');
+        });
+        
+        // Close FAB when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!socialFab.contains(e.target) && socialFab.classList.contains('active')) {
+                socialFab.classList.remove('active');
+            }
+        });
+        
+        // Close FAB on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (socialFab.classList.contains('active')) {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    socialFab.classList.remove('active');
+                }, 100);
+            }
+        }, { passive: true });
+    }
+
+    // ========== ABOUT SECTION IMAGE CAROUSEL ==========
+    const aboutCarousel = document.querySelector('.about-carousel');
+    if (aboutCarousel) {
+        const slides = aboutCarousel.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dots .dot-accent');
+        let currentSlide = 0;
+        let carouselInterval;
+
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (dots[i]) dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlide = index;
+        };
+
+        const nextSlide = () => {
+            const next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        };
+
+        const startCarousel = () => {
+            carouselInterval = setInterval(nextSlide, 4000);
+        };
+
+        const stopCarousel = () => {
+            clearInterval(carouselInterval);
+        };
+
+        // Click on dots to navigate
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopCarousel();
+                showSlide(index);
+                startCarousel();
+            });
+        });
+
+        // Start auto-play
+        startCarousel();
+
+        // Pause on hover
+        aboutCarousel.addEventListener('mouseenter', stopCarousel);
+        aboutCarousel.addEventListener('mouseleave', startCarousel);
+    }
 
     console.log('Dabral Ventures - Landing Page Loaded Successfully');
 });
