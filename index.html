@@ -79,7 +79,7 @@
               <a class="nav-link" href="#services">Services</a>
               <a class="nav-link" href="#why-us">Why Us</a>
               <a class="nav-link" href="#portfolio">Portfolio</a>
-              <a class="nav-link" href="#testimonials">Reviews</a>
+              <a class="nav-link" href="#" onclick="event.preventDefault();" aria-disabled="true" data-module="reviews-disabled">Reviews</a>
             </nav>
 
             <a href="#contact" class="nav-cta">Get in Touch</a>
@@ -134,7 +134,7 @@
                 <a href="#services" class="btn-outline">Explore Services</a>
               </div>
 
-              <!-- Trust strip -->
+              <!-- Trust strip (temporarily hidden)
               <div class="hero-trust-strip">
                 <div class="trust-metric">
                   <span class="trust-num">50+</span>
@@ -151,6 +151,7 @@
                   <span class="trust-label">Faster Delivery</span>
                 </div>
               </div>
+              -->
             </div>
 
             <div class="hero-visual-new reveal-scale" style="--delay: 0.2s">
@@ -769,13 +770,13 @@
             </div>
         </section>
 
+        <!-- REVIEWS MODULE: TEMPORARILY DISABLED (START) -->
         <!-- Divider Between Portfolio & Testimonials -->
-        <div class="section-divider-wrapper reveal-up">
+        <div class="section-divider-wrapper reveal-up" style="display: none;" aria-hidden="true" data-module="reviews-disabled">
             <div class="thin-cool-line"></div>
         </div>
 
-        <!-- Testimonials Section -->
-        <section class="testimonials section" id="testimonials">
+        <section class="testimonials section" id="testimonials" style="display: none;" aria-hidden="true" data-module="reviews-disabled">
             <div class="container">
                 <!-- Top Section: Header + Featured Card side by side -->
                 <!-- Container A -->
@@ -924,9 +925,10 @@
         </section>
 
         <!-- Divider Between Testimonials & Contact -->
-        <div class="section-divider-wrapper reveal-up">
+        <div class="section-divider-wrapper reveal-up" style="display: none;" aria-hidden="true" data-module="reviews-disabled">
             <div class="thin-cool-line"></div>
         </div>
+        <!-- REVIEWS MODULE: TEMPORARILY DISABLED (END) -->
 
         <!-- Contact Section -->
         <section class="contact section" id="contact">
@@ -1016,7 +1018,7 @@
                             <h4>Company</h4>
                             <a href="#about">About</a>
                             <a href="#portfolio">Portfolio</a>
-                            <a href="#testimonials">Testimonials</a>
+                            <a href="#" onclick="event.preventDefault();" aria-disabled="true" data-module="reviews-disabled">Testimonials</a>
                             <a href="#contact">Contact</a>
                         </div>
                         <div class="footer-column">
