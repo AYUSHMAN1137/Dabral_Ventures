@@ -741,43 +741,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== CONTACT FORM HANDLING ==========
     const contactForm = document.querySelector('.contact-form');
+    const whatsappNumber = '919084408962';
     
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const submitBtn = contactForm.querySelector('.submit-btn');
-            const originalText = submitBtn.innerHTML;
-            
-            // Show loading state
-            submitBtn.innerHTML = `
-                <span>Sending...</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
-                    <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/>
-                </svg>
-            `;
-            submitBtn.disabled = true;
-            
-            // Simulate form submission (replace with actual API call)
-            setTimeout(() => {
-                submitBtn.innerHTML = `
-                    <span>Message Sent!</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 6L9 17l-5-5"/>
-                    </svg>
-                `;
-                submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.disabled = false;
-                }, 3000);
-            }, 1500);
+            const name = contactForm.querySelector('#name')?.value.trim() || '';
+            const email = contactForm.querySelector('#email')?.value.trim() || '';
+            const projectType = contactForm.querySelector('#project-type')?.value.trim() || '';
+            const message = contactForm.querySelector('#message')?.value.trim() || '';
+
+            const whatsappMessage =
+                `Hi Dabral Ventures,%0A%0A` +
+                `I want to get in touch.%0A` +
+                `Name: ${encodeURIComponent(name)}%0A` +
+                `Email: ${encodeURIComponent(email)}%0A` +
+                `Project Type: ${encodeURIComponent(projectType)}%0A` +
+                `Message: ${encodeURIComponent(message)}`;
+
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            window.open(whatsappUrl, '_blank', 'noopener');
         });
     }
 
